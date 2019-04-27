@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Fields;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -9,30 +10,31 @@ public class Game : MonoBehaviour
 
     public static Game Instance { private set; get; }
 
-    private List<Player> _players = new List<Player>();
+    private readonly List<Player> _players = new List<Player>();
 
-    private int _activePlayer = 0;
+    private int _activePlayer;
+
+    [SerializeField]
+    private Text playerIntroduction;
+    
+    [SerializeField]
+    private Text playerIntroductionTemplate;
     
     private void Awake()
     {
         Instance = this;
         
-        // Spawning multiple players √
-        // Each field needs to keep track of how many players are there (probably even which players) √
-        // when a player enters a field, the offset is dtermined by the amount of players √
-        // and we are using rounds √
-        
-        // when a field changes players, the offset for each existing player needs to be recalculated
-        // so basically a new movement type === reposition
-        
         var names = NameEngine.GetNames(4);
         _players.AddRange(new []
         {
-            SpawnPlayer(names[0]),
-            SpawnPlayer(names[1]),
-            SpawnPlayer(names[2]),
-            SpawnPlayer(names[3])
+            SpawnPlayer(names[0], 1),
+            SpawnPlayer(names[1], 2),
+            SpawnPlayer(names[2], 3),
+            SpawnPlayer(names[3], 4)
         });
+
+
+        StartTurn();
     }
 
     private void Update()
@@ -47,17 +49,32 @@ public class Game : MonoBehaviour
         {
             _activePlayer = 0;
         }
+        
+        StartTurn();
+    }
+
+    private void StartTurn()
+    {
+        var player = _players[_activePlayer];
+        var playerName = player.GetName();
+        var id = player.GetId();
+
+        playerIntroduction.text = playerIntroductionTemplate.text
+            .Replace("{{id}}", id.ToString())
+            .Replace("{{name}}", playerName);
+        
+        playerIntroduction.gameObject.SetActive(true);
     }
 
     public Field GetStartField() => startField;
 
-    private Player SpawnPlayer(string name)
+    private Player SpawnPlayer(string newName, int id)
     {
         var prefab = Resources.Load<GameObject>("Player");
         var instance = Instantiate(prefab);
 
         instance.transform.position = startField.transform.position + new Vector3(0, .5f, 0);
         
-        return instance.GetComponent<Player>().SetPlayerName(name);
+        return instance.GetComponent<Player>().SetPlayerNameAndId(newName, id);
     }
 }

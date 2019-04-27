@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     private float _moveTimer;
     private int _fieldId;
 
+    private string _playerName;
+    private int _playerId;
+
     private void Start()
     {
         SetField(Game.Instance.GetStartField());
@@ -90,12 +93,18 @@ public class Player : MonoBehaviour
         _moveStep = MoveStep.RePosition;
     }
 
-    public Player SetPlayerName(string name)
+    public Player SetPlayerNameAndId(string newName, int id)
     {
+        _playerName = newName;
+        _playerId = id;
+
         return this;
     }
 
     public Field GetField() => _currentField;
+
+    public string GetName() => _playerName;
+    public int GetId() => _playerId;
 }
 
 internal enum MoveStep
