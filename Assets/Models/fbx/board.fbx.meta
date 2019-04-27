@@ -17,8 +17,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Win
+    second: {fileID: 2100000, guid: ef5c15c812ef24fc89a88f64fb562483, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: bridge 1
     second: {fileID: 2100000, guid: 090a01b3d68e348a3a0007af74c583b3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bridge 2
+    second: {fileID: 2100000, guid: 1913d966f40be4883b134c86e334492a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
