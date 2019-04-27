@@ -35,7 +35,6 @@ public class Player : MonoBehaviour
         if (_moveStep == MoveStep.Finish)
         {
             _movementFinishedCallback?.Invoke();
-            _currentField.OnEnter();
             
             return;
         }
