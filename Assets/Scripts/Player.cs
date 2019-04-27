@@ -130,6 +130,8 @@ public class Player : MonoBehaviour
     {
         _moveStep = MoveStep.Stopped;
     }
+
+    public virtual bool IsBot() => false;
 }
 
 internal enum MoveStep

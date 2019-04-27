@@ -449,7 +449,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player {{id}} has won!
+  m_Text: '{{prefix}} {{id}} has won!'
 --- !u!222 &475987444
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1100,7 +1100,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Player {{id}}
+  m_Text: '{{prefix}} {{id}}
 
     <size=26><i>{{name}}</i></size>'
 --- !u!222 &1550924178
@@ -2238,6 +2238,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000,
         type: 0}
+    - target: {fileID: 4580733742558585864, guid: 925706cf0e8b74c8581208c26d429f3e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 925706cf0e8b74c8581208c26d429f3e,
         type: 3}
       propertyPath: m_LocalPosition.x

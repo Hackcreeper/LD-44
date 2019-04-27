@@ -52,6 +52,8 @@ public class Game : MonoBehaviour
     [SerializeField]
     private GameObject pressSpace;
 
+    private float _botTimer = 1f;
+
     private bool _won;
 
     private readonly Color[] _colors = new[]
@@ -70,9 +72,9 @@ public class Game : MonoBehaviour
         _players.AddRange(new []
         {
             SpawnPlayer(names[0], 1),
-            SpawnPlayer(names[1], 2),
+            SpawnPlayer(names[1], 2, true),
             SpawnPlayer(names[2], 3),
-            SpawnPlayer(names[3], 4)
+            SpawnPlayer(names[3], 4, true)
         });
 
         var position = startField.transform.position;
@@ -91,9 +93,16 @@ public class Game : MonoBehaviour
             return;
         }
         
+        var player = _players[_activePlayer];
+        
         if (!_inProgress)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (player.IsBot())
+            {
+                _botTimer -= Time.deltaTime;
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Space) || (player.IsBot() && _botTimer <= 0f))
             {
                 pressSpace.SetActive(false);
                 StartNewTurn();
@@ -114,7 +123,6 @@ public class Game : MonoBehaviour
 
         _moving = true;
         
-        var player = _players[_activePlayer];
         player.SetField(player.GetField().GetNext());
         player.RegisterMovementFinishedCallback(() => { HandleFinishedMovement(player); });
     }
@@ -176,6 +184,8 @@ public class Game : MonoBehaviour
     
     private void StartTurn()
     {
+        _botTimer = Random.Range(1f, 2f);
+        
         var player = _players[_activePlayer];
         var playerName = player.GetName();
         var id = player.GetId();
@@ -183,27 +193,41 @@ public class Game : MonoBehaviour
         followingCamera.SetTarget(player.transform);
 
         playerIntroduction.text = playerIntroductionTemplate.text
+            .Replace("{{prefix}}", player.IsBot() ? "Bot" : "Player")
             .Replace("{{id}}", id.ToString())
             .Replace("{{name}}", playerName);
 
         remainingFields.text = "";
 
         colorPreview.color = _colors[player.GetId() - 1];
+
+        if (player.IsBot())
+        {
+            return;
+        }
         
         pressSpace.SetActive(true);
     }
 
     public Field GetStartField() => startField;
 
-    private Player SpawnPlayer(string newName, int id)
+    private Player SpawnPlayer(string newName, int id, bool bot = false)
     {
         var prefab = Resources.Load<GameObject>("Player");
         var instance = Instantiate(prefab);
         
         instance.transform.position = startField.transform.position + new Vector3(0, .5f, 0);
         instance.GetComponentInChildren<MeshRenderer>().material.color = _colors[id - 1];
+
+
+        var playerComp = instance.GetComponent<Player>();
+        if (bot)
+        {
+            Destroy(playerComp);
+            playerComp = instance.AddComponent<Bot>();
+        }
         
-        var playerComp = instance.GetComponent<Player>().SetPlayerNameAndId(newName, id);
+        playerComp.SetPlayerNameAndId(newName, id);
         playerComp.SetField(startField);
 
         return playerComp;
@@ -213,13 +237,17 @@ public class Game : MonoBehaviour
     {
         _won = true;
         
-        _players.ForEach(player => { player.Stop(); });
+        _players.ForEach(p => { p.Stop(); });
         
         playerIntroduction.gameObject.SetActive(false);
         remainingFields.gameObject.SetActive(false);
         colorPreview.gameObject.SetActive(false);
 
-        winInfo.text = winInfo.text.Replace("{{id}}", _players[_activePlayer].GetId().ToString());
+        var player = _players[_activePlayer];
+        winInfo.text = winInfo.text
+            .Replace("{{prefix}}", player.IsBot() ? "Bot" : "Player")
+            .Replace("{{id}}", player.GetId().ToString());
+        
         winInfo.gameObject.SetActive(true);
 
         followingCamera.SetTarget(winHouse);
