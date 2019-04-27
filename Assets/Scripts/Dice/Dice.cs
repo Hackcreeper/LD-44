@@ -41,7 +41,7 @@ namespace Dice
                 }
 
                 _finished = true;
-                _whenFinished?.Invoke(3);
+                _whenFinished?.Invoke(GetHighestFace());
                 
                 return;
             }
@@ -62,9 +62,19 @@ namespace Dice
         public int GetHighestFace()
         {
             var highest = float.MinValue;
+            int highestFace = 1;
             
+            foreach (var face in _faces)
+            {
+                var y = face.transform.position.y;
+                if (y > highest)
+                {
+                    highest = y;
+                    highestFace = face.GetEyes();
+                }
+            }
             
-            return 1;
+            return highestFace;
         }
 
         public void RegisterCallback(Action<int> callback)

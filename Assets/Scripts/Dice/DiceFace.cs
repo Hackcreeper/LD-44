@@ -6,5 +6,7 @@ namespace Dice
     {
         [SerializeField]
         private int eyes;
+
+        public int GetEyes() => eyes;
     }
 }

@@ -16,6 +16,13 @@ public class Game : MonoBehaviour
     private readonly List<Player> _players = new List<Player>();
 
     private int _activePlayer;
+    private int _remaining;
+    private bool _diceFinished;
+    private bool _moving;
+
+    private bool _inProgress;
+
+    private GameObject _dice;
 
     [SerializeField]
     private Text playerIntroduction;
@@ -23,7 +30,7 @@ public class Game : MonoBehaviour
     [SerializeField]
     private Text playerIntroductionTemplate;
 
-    private Color[] _colors = new[]
+    private readonly Color[] _colors = new[]
     {
         Color.green,
         Color.blue,
@@ -55,30 +62,75 @@ public class Game : MonoBehaviour
 
     private void Update()
     {
-        if (!Input.GetKeyDown(KeyCode.Space)) return;
-        
-        var dice = Instantiate(Resources.Load<GameObject>("Dice"));
-        dice.transform.position = camera.transform.position - new Vector3(2f, 3f, 4f);
-
-        dice.GetComponent<Dice.Dice>().RegisterCallback(face =>
+        if (!_inProgress)
         {
-            Debug.Log("Dice finished. Face: " + face);            
-        });
-        
-        return;
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                StartNewTurn();
+            }
+
+            return;
+        }
+
+        if (_inProgress && !_diceFinished)
+        {
+            return;
+        }
+
+        if (_moving)
+        {
+            return;
+        }
+
+        _moving = true;
         
         var player = _players[_activePlayer];
         player.SetField(player.GetField().GetNext());
-
-        _activePlayer++;
-        if (_activePlayer >= _players.Count)
-        {
-            _activePlayer = 0;
-        }
-        
-        StartTurn();
+        player.RegisterMovementFinishedCallback(() => { HandleFinishedMovement(player); });
     }
 
+    private void HandleFinishedMovement(Player player)
+    {
+        player.ClearCallback();
+        
+        _remaining--;
+        if (_remaining <= 0)
+        {
+            _moving = false;
+            _inProgress = false;
+            _diceFinished = false;
+            
+            Destroy(_dice);
+
+            _activePlayer++;
+            if (_activePlayer >= _players.Count)
+            {
+                _activePlayer = 0;
+            }
+            
+            StartTurn();
+
+            return;
+        }
+        
+        player.RegisterMovementFinishedCallback(() => { HandleFinishedMovement(player); });
+        player.SetField(player.GetField().GetNext());
+    }
+
+    private void StartNewTurn()
+    {
+        _inProgress = true;
+        
+        _dice = Instantiate(Resources.Load<GameObject>("Dice"));
+        _dice.transform.position = camera.transform.position - new Vector3(2f, 3f, 4f);
+
+        _dice.GetComponent<Dice.Dice>().RegisterCallback(face =>
+        {
+            _diceFinished = true;
+            _remaining = face;            
+        });
+    }
+    
     private void StartTurn()
     {
         var player = _players[_activePlayer];

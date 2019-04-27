@@ -1,3 +1,4 @@
+using System;
 using Fields;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ public class Player : MonoBehaviour
     private string _playerName;
     private int _playerId;
 
+    private Action _movementFinishedCallback;
+
     private void Start()
     {
         SetField(Game.Instance.GetStartField());
@@ -23,9 +26,11 @@ public class Player : MonoBehaviour
     }
 
     private void Update()
-    {
+    {   
         if (_moveStep == MoveStep.Finish)
         {
+            _movementFinishedCallback?.Invoke();
+            
             return;
         }
 
@@ -105,6 +110,16 @@ public class Player : MonoBehaviour
 
     public string GetName() => _playerName;
     public int GetId() => _playerId;
+
+    public void RegisterMovementFinishedCallback(Action callback)
+    {
+        _movementFinishedCallback += callback;
+    }
+
+    public void ClearCallback()
+    {
+        _movementFinishedCallback = null;
+    }
 }
 
 internal enum MoveStep

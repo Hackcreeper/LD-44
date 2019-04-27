@@ -3,7 +3,17 @@ guid: 925706cf0e8b74c8581208c26d429f3e
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Board
+    second: {fileID: 2100000, guid: e2dfeae92a13f4e3dad621c299c34dc8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Felder
+    second: {fileID: 2100000, guid: 4789847f4e8ca4ba3a1fe9c99c2b538c, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
