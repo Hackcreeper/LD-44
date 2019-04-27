@@ -33,12 +33,23 @@ public class Game : MonoBehaviour
     
     [SerializeField]
     private Image colorPreview;
+
+    [SerializeField]
+    private Text winInfo;
     
     [SerializeField]
     private Text playerIntroductionTemplate;
 
     [SerializeField]
     private FollowingCamera followingCamera;
+
+    [SerializeField]
+    private Transform winHouse;
+
+    [SerializeField]
+    private Transform[] fireworkSpawner;
+
+    private bool _won;
 
     private readonly Color[] _colors = new[]
     {
@@ -72,6 +83,11 @@ public class Game : MonoBehaviour
 
     private void Update()
     {
+        if (_won)
+        {
+            return;
+        }
+        
         if (!_inProgress)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -179,5 +195,29 @@ public class Game : MonoBehaviour
         playerComp.SetField(startField);
 
         return playerComp;
+    }
+
+    public void Win()
+    {
+        _won = true;
+        
+        _players.ForEach(player => { player.Stop(); });
+        
+        playerIntroduction.gameObject.SetActive(false);
+        remainingFields.gameObject.SetActive(false);
+        colorPreview.gameObject.SetActive(false);
+
+        winInfo.text = winInfo.text.Replace("{{id}}", _players[_activePlayer].GetId().ToString());
+        winInfo.gameObject.SetActive(true);
+
+        followingCamera.SetTarget(winHouse);
+        followingCamera.RotateAround();
+
+        var firework = Resources.Load<GameObject>("Firework");
+        foreach (var spawner in fireworkSpawner)
+        {
+            var instance = Instantiate(firework);
+            instance.transform.position = spawner.position;
+        }
     }
 }
