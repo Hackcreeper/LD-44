@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Fields;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,6 +30,9 @@ public class Game : MonoBehaviour
     
     [SerializeField]
     private Text playerIntroductionTemplate;
+
+    [SerializeField]
+    private FollowingCamera followingCamera;
 
     private readonly Color[] _colors = new[]
     {
@@ -123,6 +127,10 @@ public class Game : MonoBehaviour
         
         _dice = Instantiate(Resources.Load<GameObject>("Dice"));
         _dice.transform.position = camera.transform.position - new Vector3(2f, 3f, 4f);
+        _dice.GetComponentsInChildren<MeshRenderer>().ToList().ForEach(mesh =>
+            {
+                mesh.material.color = _colors[_players[_activePlayer].GetId() - 1];
+            });
 
         _dice.GetComponent<Dice.Dice>().RegisterCallback(face =>
         {
@@ -136,6 +144,8 @@ public class Game : MonoBehaviour
         var player = _players[_activePlayer];
         var playerName = player.GetName();
         var id = player.GetId();
+        
+        followingCamera.SetTarget(player.transform);
 
         playerIntroduction.text = playerIntroductionTemplate.text
             .Replace("{{id}}", id.ToString())
