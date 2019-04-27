@@ -79,6 +79,7 @@ public class Game : MonoBehaviour
         _players[3].transform.position = position + startField.GetOffset(4);
 
         StartTurn();
+        Win();
     }
 
     private void Update()
