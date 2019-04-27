@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     private MoveStep _moveStep = MoveStep.Lerp1;
     
     private float _moveTimer;
-    private int _fieldId;
+    public int _fieldId;
 
     private string _playerName;
     private int _playerId;

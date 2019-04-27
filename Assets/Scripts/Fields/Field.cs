@@ -30,7 +30,7 @@ namespace Fields
             RecalculatePositions();
         }
 
-        private void RecalculatePositions()
+        public void RecalculatePositions()
         {
             for (int i = 1; i <= _players.Count; i++)
             {

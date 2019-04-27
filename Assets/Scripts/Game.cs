@@ -19,7 +19,15 @@ public class Game : MonoBehaviour
     
     [SerializeField]
     private Text playerIntroductionTemplate;
-    
+
+    private Color[] _colors = new[]
+    {
+        Color.green,
+        Color.blue,
+        Color.red,
+        Color.yellow,
+    };
+
     private void Awake()
     {
         Instance = this;
@@ -33,6 +41,11 @@ public class Game : MonoBehaviour
             SpawnPlayer(names[3], 4)
         });
 
+        var position = startField.transform.position;
+        _players[0].transform.position = position + startField.GetOffset(1);
+        _players[1].transform.position = position + startField.GetOffset(2);
+        _players[2].transform.position = position + startField.GetOffset(3);
+        _players[3].transform.position = position + startField.GetOffset(4);
 
         StartTurn();
     }
@@ -72,9 +85,13 @@ public class Game : MonoBehaviour
     {
         var prefab = Resources.Load<GameObject>("Player");
         var instance = Instantiate(prefab);
-
-        instance.transform.position = startField.transform.position + new Vector3(0, .5f, 0);
         
-        return instance.GetComponent<Player>().SetPlayerNameAndId(newName, id);
+        instance.transform.position = startField.transform.position + new Vector3(0, .5f, 0);
+        instance.GetComponentInChildren<MeshRenderer>().material.color = _colors[id - 1];
+        
+        var playerComp = instance.GetComponent<Player>().SetPlayerNameAndId(newName, id);
+        playerComp.SetField(startField);
+
+        return playerComp;
     }
 }
