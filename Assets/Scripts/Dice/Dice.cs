@@ -1,4 +1,5 @@
 using System;
+using System.IO.Compression;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -20,6 +21,8 @@ namespace Dice
 
         private Action<int> _whenFinished;
 
+        private float _timer = 1.5f;
+
         private void Start()
         {
             _rigidbody = GetComponent<Rigidbody>();
@@ -35,7 +38,9 @@ namespace Dice
             
             if (_grounded)
             {
-                if (_rigidbody.angularVelocity.magnitude > 0f)
+                _timer -= Time.deltaTime;
+                
+                if (_timer > 0f || _rigidbody.angularVelocity.magnitude > 0f)
                 {
                     return;
                 }
