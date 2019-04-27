@@ -83,8 +83,8 @@ public class Game : MonoBehaviour
         // These will be build dynamically -> for each health point half a heart will be added √
         // Empty heart containers will still remain √
         // By default there are 5 health containers √
-        // If a player has less or equal to zero health, he'll die
-        // This will remove the player from the game (maybe animate the figure) 
+        // If a player has less or equal to zero health, he'll die √
+        // This will remove the player from the game (maybe animate the figure) √
         // And if there is only one player / bot left, he will automatically win
         // In this case, the camera should move to the player instead of the win zone
         // Last but not least, if only bots are remaining, we will allow the user to press the {enter key} to skip the game
@@ -119,8 +119,13 @@ public class Game : MonoBehaviour
         {
             return;
         }
-        
+
         var player = _players[_activePlayer];
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            player.Hurt(1);
+        }
+        
         
         if (!_inProgress)
         {
@@ -198,7 +203,7 @@ public class Game : MonoBehaviour
         _dice.transform.position = camera.transform.position - new Vector3(2f, 3f, 4f);
         _dice.GetComponentsInChildren<MeshRenderer>().ToList().ForEach(mesh =>
             {
-                mesh.material.color = _colors[_players[_activePlayer].GetId() - 1];
+                mesh.material.color = _colors[_players[_activePlayer].GetPublicId() - 1];
             });
         
         _dice.GetComponent<Dice.Dice>().RegisterCallback(face =>
@@ -215,7 +220,7 @@ public class Game : MonoBehaviour
         
         var player = _players[_activePlayer];
         var playerName = player.GetName();
-        var id = player.GetId();
+        var id = player.GetPublicId();
         
         followingCamera.SetTarget(player.transform);
 
@@ -226,7 +231,7 @@ public class Game : MonoBehaviour
 
         remainingFields.text = "";
 
-        RenderHearts(player);
+        RenderHearts();
 
         if (player.IsBot())
         {
@@ -236,9 +241,9 @@ public class Game : MonoBehaviour
         pressSpace.SetActive(true);
     }
 
-    public void RenderHearts(Player player)
+    public void RenderHearts()
     {
-        var health = player.GetHealth();
+        var health = _players[_activePlayer].GetHealth();
         heartImages[0].sprite =
             health <= 0
                 ? emptyHeart
@@ -311,7 +316,7 @@ public class Game : MonoBehaviour
         var player = _players[_activePlayer];
         winInfo.text = winInfo.text
             .Replace("{{prefix}}", player.IsBot() ? "Bot" : "Player")
-            .Replace("{{id}}", player.GetId().ToString());
+            .Replace("{{id}}", player.GetPublicId().ToString());
         
         winInfo.gameObject.SetActive(true);
 
@@ -324,5 +329,19 @@ public class Game : MonoBehaviour
             var instance = Instantiate(firework);
             instance.transform.position = spawner.position;
         }
+    }
+
+    public void Kill(Player player)
+    {
+        _players.Remove(player);
+
+        for (var i = 1; i < _players.Count; i++)
+        {
+            _players[i-1].RefreshPlayerId(i);
+        }
+
+        _remaining = 0;
+        _activePlayer--;
+        HandleFinishedMovement(player);
     }
 }
