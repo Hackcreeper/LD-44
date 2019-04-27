@@ -36,6 +36,8 @@ public static class NameEngine
         "Baummann",
         "Thursday",
         "Saturday",
+        "Otto",
+        "Mr Peppboy"
     });
     
     public static string[] GetNames(int amount)

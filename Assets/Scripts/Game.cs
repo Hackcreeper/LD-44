@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Fields;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,13 @@ public class Game : MonoBehaviour
     private readonly List<Player> _players = new List<Player>();
 
     private int _activePlayer;
+    private int _remaining;
+    private bool _diceFinished;
+    private bool _moving;
+
+    private bool _inProgress;
+
+    private GameObject _dice;
 
     [SerializeField]
     private Text playerIntroduction;
@@ -23,7 +31,10 @@ public class Game : MonoBehaviour
     [SerializeField]
     private Text playerIntroductionTemplate;
 
-    private Color[] _colors = new[]
+    [SerializeField]
+    private FollowingCamera followingCamera;
+
+    private readonly Color[] _colors = new[]
     {
         Color.green,
         Color.blue,
@@ -39,47 +50,102 @@ public class Game : MonoBehaviour
         _players.AddRange(new []
         {
             SpawnPlayer(names[0], 1),
-//            SpawnPlayer(names[1], 2),
-//            SpawnPlayer(names[2], 3),
-//            SpawnPlayer(names[3], 4)
+            SpawnPlayer(names[1], 2),
+            SpawnPlayer(names[2], 3),
+            SpawnPlayer(names[3], 4)
         });
 
         var position = startField.transform.position;
         _players[0].transform.position = position + startField.GetOffset(1);
-//        _players[1].transform.position = position + startField.GetOffset(2);
-//        _players[2].transform.position = position + startField.GetOffset(3);
-//        _players[3].transform.position = position + startField.GetOffset(4);
+        _players[1].transform.position = position + startField.GetOffset(2);
+        _players[2].transform.position = position + startField.GetOffset(3);
+        _players[3].transform.position = position + startField.GetOffset(4);
 
         StartTurn();
     }
 
     private void Update()
     {
-        if (!Input.GetKeyDown(KeyCode.Space)) return;
-        
-//        // Get dice brudi <3
-//        var dice = Instantiate(Resources.Load<GameObject>("Dice"));
-//        dice.transform.position = camera.transform.position + new Vector3(-4f, -3f, 0);
-//
-//        return;
+        if (!_inProgress)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                StartNewTurn();
+            }
+
+            return;
+        }
+
+        if (_inProgress && !_diceFinished)
+        {
+            return;
+        }
+
+        if (_moving)
+        {
+            return;
+        }
+
+        _moving = true;
         
         var player = _players[_activePlayer];
         player.SetField(player.GetField().GetNext());
-
-        _activePlayer++;
-        if (_activePlayer >= _players.Count)
-        {
-            _activePlayer = 0;
-        }
-        
-        StartTurn();
+        player.RegisterMovementFinishedCallback(() => { HandleFinishedMovement(player); });
     }
 
+    private void HandleFinishedMovement(Player player)
+    {
+        player.ClearCallback();
+        
+        _remaining--;
+        if (_remaining <= 0)
+        {
+            _moving = false;
+            _inProgress = false;
+            _diceFinished = false;
+            
+            Destroy(_dice);
+
+            _activePlayer++;
+            if (_activePlayer >= _players.Count)
+            {
+                _activePlayer = 0;
+            }
+            
+            StartTurn();
+
+            return;
+        }
+        
+        player.RegisterMovementFinishedCallback(() => { HandleFinishedMovement(player); });
+        player.SetField(player.GetField().GetNext());
+    }
+
+    private void StartNewTurn()
+    {
+        _inProgress = true;
+        
+        _dice = Instantiate(Resources.Load<GameObject>("Dice"));
+        _dice.transform.position = camera.transform.position - new Vector3(2f, 3f, 4f);
+        _dice.GetComponentsInChildren<MeshRenderer>().ToList().ForEach(mesh =>
+            {
+                mesh.material.color = _colors[_players[_activePlayer].GetId() - 1];
+            });
+
+        _dice.GetComponent<Dice.Dice>().RegisterCallback(face =>
+        {
+            _diceFinished = true;
+            _remaining = face;            
+        });
+    }
+    
     private void StartTurn()
     {
         var player = _players[_activePlayer];
         var playerName = player.GetName();
         var id = player.GetId();
+        
+        followingCamera.SetTarget(player.transform);
 
         playerIntroduction.text = playerIntroductionTemplate.text
             .Replace("{{id}}", id.ToString())

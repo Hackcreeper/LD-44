@@ -12,10 +12,13 @@ namespace Dice
         private const float SmoothModifier = 0.9f;
 
         private float _progress;
+        private bool _grounded;
         private bool _finished;
 
         [SerializeField]
         private DiceFace[] _faces;
+
+        private Action<int> _whenFinished;
 
         private void Start()
         {
@@ -25,9 +28,23 @@ namespace Dice
 
         private void Update()
         {
-            Debug.Log(_rigidbody.angularVelocity.magnitude);
+            if (_finished)
+            {
+                return;
+            }
             
-            if (_finished) return;
+            if (_grounded)
+            {
+                if (_rigidbody.angularVelocity.magnitude > 0f)
+                {
+                    return;
+                }
+
+                _finished = true;
+                _whenFinished?.Invoke(GetHighestFace());
+                
+                return;
+            }
             
             _progress += SmoothModifier * Time.deltaTime;
             _rigidbody.rotation = Quaternion.Slerp(Quaternion.identity, _targetRotation, _progress);
@@ -37,9 +54,32 @@ namespace Dice
             {
                 if (hit.distance < 0.8f)
                 {
-                    _finished = true;
+                    _grounded = true;
                 }
             }
+        }
+
+        public int GetHighestFace()
+        {
+            var highest = float.MinValue;
+            int highestFace = 1;
+            
+            foreach (var face in _faces)
+            {
+                var y = face.transform.position.y;
+                if (y > highest)
+                {
+                    highest = y;
+                    highestFace = face.GetEyes();
+                }
+            }
+            
+            return highestFace;
+        }
+
+        public void RegisterCallback(Action<int> callback)
+        {
+            _whenFinished += callback;
         }
     }
 }
