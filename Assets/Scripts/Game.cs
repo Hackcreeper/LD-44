@@ -11,6 +11,11 @@ public class Game : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        
+        var names = NameEngine.GetNames(3);
+        Debug.Log(names[0]);
+        Debug.Log(names[1]);
+        Debug.Log(names[2]);
     }
 
     public Field GetStartField() => startField;
