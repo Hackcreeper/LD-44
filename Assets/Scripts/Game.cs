@@ -85,8 +85,9 @@ public class Game : MonoBehaviour
         // By default there are 5 health containers √
         // If a player has less or equal to zero health, he'll die √
         // This will remove the player from the game (maybe animate the figure) √
-        // And if there is only one player / bot left, he will automatically win
-        // In this case, the camera should move to the player instead of the win zone
+        // And if there is only one player / bot left, he will automatically win √
+        // In this case, the camera should move to the player instead of the win zone √
+        
         // Last but not least, if only bots are remaining, we will allow the user to press the {enter key} to skip the game
         // And from the winning screen, with the enter key the game should restart
         // And finally the credits should be shown in the win screen
@@ -312,6 +313,7 @@ public class Game : MonoBehaviour
         
         playerIntroduction.gameObject.SetActive(false);
         remainingFields.gameObject.SetActive(false);
+        heartImages.ToList().ForEach(image => image.gameObject.SetActive(false));
 
         var player = _players[_activePlayer];
         winInfo.text = winInfo.text
@@ -320,7 +322,7 @@ public class Game : MonoBehaviour
         
         winInfo.gameObject.SetActive(true);
 
-        followingCamera.SetTarget(winHouse);
+        followingCamera.SetTarget(player.transform);
         followingCamera.RotateAround();
 
         var firework = Resources.Load<GameObject>("Firework");
@@ -334,6 +336,7 @@ public class Game : MonoBehaviour
     public void Kill(Player player)
     {
         _players.Remove(player);
+        pressSpace.SetActive(false);
 
         for (var i = 1; i < _players.Count; i++)
         {
@@ -343,5 +346,10 @@ public class Game : MonoBehaviour
         _remaining = 0;
         _activePlayer--;
         HandleFinishedMovement(player);
+        
+        if (_players.Count == 1)
+        {
+            Win();
+        }
     }
 }
