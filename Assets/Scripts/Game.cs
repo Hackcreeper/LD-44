@@ -63,7 +63,7 @@ public class Game : MonoBehaviour
             .Replace("{{id}}", id.ToString())
             .Replace("{{name}}", playerName);
         
-        playerIntroduction.gameObject.SetActive(true);
+        playerIntroduction.GetComponent<FadeIn>().StartFadeIn();
     }
 
     public Field GetStartField() => startField;
