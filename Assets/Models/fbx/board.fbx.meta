@@ -37,8 +37,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: corner field
+    second: {fileID: 2100000, guid: 09361cc9d0482435b878734bd13f53ec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cross field
+    second: {fileID: 2100000, guid: da61f2a1341ee44159a98e6db0e6f4a1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: fields
     second: {fileID: 2100000, guid: 4789847f4e8ca4ba3a1fe9c99c2b538c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: long fields
+    second: {fileID: 2100000, guid: 7879a6efd33ad47ea808af925a829208, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
