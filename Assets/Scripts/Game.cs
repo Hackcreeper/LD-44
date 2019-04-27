@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Fields;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -62,6 +63,9 @@ public class Game : MonoBehaviour
     
     [SerializeField]
     private Sprite fullHeart;
+
+    [SerializeField]
+    private GameObject infoRestart;
     
     private float _botTimer = 1f;
 
@@ -87,8 +91,8 @@ public class Game : MonoBehaviour
         // This will remove the player from the game (maybe animate the figure) √
         // And if there is only one player / bot left, he will automatically win √
         // In this case, the camera should move to the player instead of the win zone √
+        // Last but not least, if only bots are remaining, we will allow the user to press the {enter key} to skip the game √
         
-        // Last but not least, if only bots are remaining, we will allow the user to press the {enter key} to skip the game
         // And from the winning screen, with the enter key the game should restart
         // And finally the credits should be shown in the win screen
         // Also show all player names in the turn order on the bottom right side with health preview
@@ -116,6 +120,11 @@ public class Game : MonoBehaviour
 
     private void Update()
     {
+        if (infoRestart.activeSelf && Input.GetKeyDown(KeyCode.Return))
+        {
+            SceneManager.LoadScene("Game");
+        }
+        
         if (_won)
         {
             return;
@@ -331,6 +340,9 @@ public class Game : MonoBehaviour
             var instance = Instantiate(firework);
             instance.transform.position = spawner.position;
         }
+        
+        pressSpace.SetActive(false);
+        infoRestart.SetActive(true);
     }
 
     public void Kill(Player player)
@@ -346,10 +358,16 @@ public class Game : MonoBehaviour
         _remaining = 0;
         _activePlayer--;
         HandleFinishedMovement(player);
-        
+
         if (_players.Count == 1)
         {
             Win();
+            return;
+        }
+
+        if (_players.All(p => p.IsBot()))
+        {
+            infoRestart.SetActive(true);
         }
     }
 }
