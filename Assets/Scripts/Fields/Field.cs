@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fields
@@ -76,6 +77,17 @@ namespace Fields
             }
 
             return Vector3.zero;
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (!nextField)
+            {
+                return;
+            }
+            
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(transform.position, nextField.transform.position);
         }
     }
 }
