@@ -29,6 +29,12 @@ public class Game : MonoBehaviour
     private Text playerIntroduction;
     
     [SerializeField]
+    private Text remainingFields;
+    
+    [SerializeField]
+    private Image colorPreview;
+    
+    [SerializeField]
     private Text playerIntroductionTemplate;
 
     [SerializeField]
@@ -96,8 +102,10 @@ public class Game : MonoBehaviour
     private void HandleFinishedMovement(Player player)
     {
         player.ClearCallback();
-        
+
         _remaining--;
+        
+        remainingFields.text = _remaining.ToString();
         if (_remaining <= 0)
         {
             _moving = false;
@@ -135,7 +143,8 @@ public class Game : MonoBehaviour
         _dice.GetComponent<Dice.Dice>().RegisterCallback(face =>
         {
             _diceFinished = true;
-            _remaining = face;            
+            _remaining = face;
+            remainingFields.text = face.ToString();
         });
     }
     
@@ -150,8 +159,10 @@ public class Game : MonoBehaviour
         playerIntroduction.text = playerIntroductionTemplate.text
             .Replace("{{id}}", id.ToString())
             .Replace("{{name}}", playerName);
-        
-        playerIntroduction.GetComponent<FadeIn>().StartFadeIn();
+
+        remainingFields.text = "";
+
+        colorPreview.color = _colors[player.GetId() - 1];
     }
 
     public Field GetStartField() => startField;
