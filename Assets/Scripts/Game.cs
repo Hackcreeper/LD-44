@@ -49,6 +49,9 @@ public class Game : MonoBehaviour
     [SerializeField]
     private Transform[] fireworkSpawner;
 
+    [SerializeField]
+    private GameObject pressSpace;
+
     private bool _won;
 
     private readonly Color[] _colors = new[]
@@ -92,6 +95,7 @@ public class Game : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                pressSpace.SetActive(false);
                 StartNewTurn();
             }
 
@@ -161,7 +165,7 @@ public class Game : MonoBehaviour
             {
                 mesh.material.color = _colors[_players[_activePlayer].GetId() - 1];
             });
-
+        
         _dice.GetComponent<Dice.Dice>().RegisterCallback(face =>
         {
             _diceFinished = true;
@@ -185,6 +189,8 @@ public class Game : MonoBehaviour
         remainingFields.text = "";
 
         colorPreview.color = _colors[player.GetId() - 1];
+        
+        pressSpace.SetActive(true);
     }
 
     public Field GetStartField() => startField;
