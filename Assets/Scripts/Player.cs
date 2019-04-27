@@ -1,48 +1,42 @@
 using Fields;
 using UnityEngine;
+using Debug = System.Diagnostics.Debug;
 
 public class Player : MonoBehaviour
 {
     private const float LerpingModifier = 3f;
     
-    private Field _lastField;
-    
+    private Vector3? _lastPosition;
     private Field _currentField;
 
     private MoveStep _moveStep = MoveStep.Lerp1;
     
     private float _moveTimer;
+    private int _fieldId;
 
     private void Start()
     {
-        _currentField = Game.Instance.GetStartField();
-        MoveToCurrentField();
+        SetField(Game.Instance.GetStartField());
+        _moveStep = MoveStep.Finish;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _lastField = _currentField;
-            _currentField = _currentField.GetNext();
-            MoveToCurrentField();
-            _currentField.OnEnter();
+            SetField(_currentField.GetNext());
+            return;
         }
 
         if (_moveStep == MoveStep.Finish)
         {
             return;
         }
+
+        Debug.Assert(_lastPosition != null, nameof(_lastPosition) + " != null");
         
-        if (null == _lastField)
-        {
-            transform.position = _currentField.transform.position + new Vector3(0, .5f, 0);
-            _moveStep = MoveStep.Finish;
-            return;
-        }
-        
-        var pA = _lastField.transform.position + new Vector3(0, .5f, 0);
-        var pB = _currentField.transform.position + new Vector3(0, .5f, 0);
+        var pA = _lastPosition.Value;
+        var pB = _currentField.transform.position + _currentField.GetOffset(_fieldId);
         var d = Vector3.Distance(pA, pB);
         var m = (pA + pB) / 2;
         var h = d * .3f;
@@ -73,9 +67,23 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void MoveToCurrentField()
+    private void SetField(Field field)
     {
+        if (_currentField)
+        {
+            _lastPosition = transform.position;
+        }
+        
+        _currentField = field;
         _moveStep = MoveStep.Lerp1;
+        _moveTimer = 0;
+
+        _fieldId = _currentField.AddPlayer(this);
+    }
+
+    public Player SetPlayerName(string name)
+    {
+        return this;
     }
 }
 

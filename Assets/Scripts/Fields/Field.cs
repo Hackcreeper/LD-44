@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Fields
 {
@@ -9,9 +10,60 @@ namespace Fields
 
         public Field GetNext() => nextField;
 
+        private List<Player> _players = new List<Player>();
+
+        private const float Size = 1f;
+
         public virtual void OnEnter()
         {
             Debug.Log("Entered field");
+        }
+
+        public int AddPlayer(Player player)
+        {
+            _players.Add(player);
+
+            return _players.Count;
+        }
+
+        public Vector3 GetOffset(int id)
+        {
+            if (_players.Count == 1)
+            {
+                return new Vector3(0, .5f, 0);
+            }
+
+            if (_players.Count == 2)
+            {
+                return new[]
+                {
+                    new Vector3(Size / 4f - Size / 2f, .5f, Size / 4f - Size / 2f), 
+                    new Vector3(Size - Size / 4f - Size / 2f, .5f, Size - Size / 4f - Size / 2f), 
+                }[id-1];
+            }
+            
+            if (_players.Count == 3)
+            {
+                return new[]
+                {
+                    new Vector3(0f, 0.5f, Size / 4 - Size / 2),
+                    new Vector3(Size / 4f - Size / 2f, 0.5f, Size - Size / 4f - Size / 2f),
+                    new Vector3(Size - Size / 4f - Size / 2f, .5f, Size - Size / 4f - Size / 2f),
+                }[id-1];
+            }
+            
+            if (_players.Count == 4)
+            {
+                return new[]
+                {
+                    new Vector3(Size / 4f - Size / 2f, .5f, Size / 4f - Size / 2f), 
+                    new Vector3(Size - Size / 4f - Size / 2f, .5f, Size / 4f - Size / 2f), 
+                    new Vector3(Size / 4f - Size / 2f, 0.5f, Size - Size / 4f - Size / 2f),
+                    new Vector3(Size - Size / 4f - Size / 2f, .5f, Size - Size / 4f - Size / 2f), 
+                }[id-1];
+            }
+
+            return Vector3.zero;
         }
     }
 }
