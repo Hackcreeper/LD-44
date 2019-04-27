@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Fields;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Game : MonoBehaviour
 {
@@ -32,9 +34,6 @@ public class Game : MonoBehaviour
     private Text remainingFields;
     
     [SerializeField]
-    private Image colorPreview;
-
-    [SerializeField]
     private Text winInfo;
     
     [SerializeField]
@@ -52,6 +51,18 @@ public class Game : MonoBehaviour
     [SerializeField]
     private GameObject pressSpace;
 
+    [SerializeField]
+    private Image[] heartImages;
+
+    [SerializeField]
+    private Sprite emptyHeart;
+    
+    [SerializeField]
+    private Sprite halfHeart;
+    
+    [SerializeField]
+    private Sprite fullHeart;
+    
     private float _botTimer = 1f;
 
     private bool _won;
@@ -66,6 +77,22 @@ public class Game : MonoBehaviour
 
     private void Awake()
     {
+        // Okay.. super simple -> add a life variable to the player object with def. value of 10 √
+        // Then we remove the color circle in the info bar √
+        // And replace it with heart icons √
+        // These will be build dynamically -> for each health point half a heart will be added √
+        // Empty heart containers will still remain √
+        // By default there are 5 health containers √
+        // If a player has less or equal to zero health, he'll die
+        // This will remove the player from the game (maybe animate the figure) 
+        // And if there is only one player / bot left, he will automatically win
+        // In this case, the camera should move to the player instead of the win zone
+        // Last but not least, if only bots are remaining, we will allow the user to press the {enter key} to skip the game
+        // And from the winning screen, with the enter key the game should restart
+        // And finally the credits should be shown in the win screen
+        // Also show all player names in the turn order on the bottom right side with health preview
+        // The current player should always be on top
+        
         Instance = this;
         
         var names = NameEngine.GetNames(4);
@@ -199,7 +226,7 @@ public class Game : MonoBehaviour
 
         remainingFields.text = "";
 
-        colorPreview.color = _colors[player.GetId() - 1];
+        RenderHearts(player);
 
         if (player.IsBot())
         {
@@ -207,6 +234,45 @@ public class Game : MonoBehaviour
         }
         
         pressSpace.SetActive(true);
+    }
+
+    public void RenderHearts(Player player)
+    {
+        var health = player.GetHealth();
+        heartImages[0].sprite =
+            health <= 0
+                ? emptyHeart
+                : health == 1
+                    ? halfHeart
+                    : fullHeart;
+
+        heartImages[1].sprite =
+            health <= 2
+                ? emptyHeart
+                : health == 3
+                    ? halfHeart
+                    : fullHeart;
+
+        heartImages[2].sprite =
+            health <= 4
+                ? emptyHeart
+                : health == 5
+                    ? halfHeart
+                    : fullHeart;
+
+        heartImages[3].sprite =
+            health <= 6
+                ? emptyHeart
+                : health == 7
+                    ? halfHeart
+                    : fullHeart;
+
+        heartImages[4].sprite =
+            health <= 8
+                ? emptyHeart
+                : health == 9
+                    ? halfHeart
+                    : fullHeart;
     }
 
     public Field GetStartField() => startField;
@@ -241,7 +307,6 @@ public class Game : MonoBehaviour
         
         playerIntroduction.gameObject.SetActive(false);
         remainingFields.gameObject.SetActive(false);
-        colorPreview.gameObject.SetActive(false);
 
         var player = _players[_activePlayer];
         winInfo.text = winInfo.text

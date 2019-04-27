@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
 
     private Action _movementFinishedCallback;
 
+    private int _health = 10;
+
     private void Start()
     {
         SetField(Game.Instance.GetStartField());
@@ -27,6 +29,12 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            _health--;
+            Game.Instance.RenderHearts(this);
+        }
+        
         if (_moveStep == MoveStep.Stopped)
         {
             return;
@@ -132,6 +140,8 @@ public class Player : MonoBehaviour
     }
 
     public virtual bool IsBot() => false;
+
+    public int GetHealth() => _health;
 }
 
 internal enum MoveStep
