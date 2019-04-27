@@ -14,16 +14,28 @@ namespace Fields
 
         private const float Size = 1f;
 
-        public virtual void OnEnter()
-        {
-            Debug.Log("Entered field");
-        }
-
         public int AddPlayer(Player player)
         {
             _players.Add(player);
 
+            RecalculatePositions();
+            
             return _players.Count;
+        }
+
+        public void RemovePlayer(Player player)
+        {
+            _players.Remove(player);
+            
+            RecalculatePositions();
+        }
+
+        private void RecalculatePositions()
+        {
+            for (int i = 1; i <= _players.Count; i++)
+            {
+                _players[i - 1].SetFieldId(i);
+            }
         }
 
         public Vector3 GetOffset(int id)

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Fields;
 using UnityEngine;
 
@@ -8,7 +9,9 @@ public class Game : MonoBehaviour
 
     public static Game Instance { private set; get; }
 
-    private Player[] _players;
+    private List<Player> _players = new List<Player>();
+
+    private int _activePlayer = 0;
     
     private void Awake()
     {
@@ -17,19 +20,33 @@ public class Game : MonoBehaviour
         // Spawning multiple players √
         // Each field needs to keep track of how many players are there (probably even which players) √
         // when a player enters a field, the offset is dtermined by the amount of players √
+        // and we are using rounds √
         
         // when a field changes players, the offset for each existing player needs to be recalculated
         // so basically a new movement type === reposition
-        // and we are using rounds
         
         var names = NameEngine.GetNames(4);
-        _players = new[]
+        _players.AddRange(new []
         {
             SpawnPlayer(names[0]),
             SpawnPlayer(names[1]),
             SpawnPlayer(names[2]),
             SpawnPlayer(names[3])
-        };
+        });
+    }
+
+    private void Update()
+    {
+        if (!Input.GetKeyDown(KeyCode.Space)) return;
+        
+        var player = _players[_activePlayer];
+        player.SetField(player.GetField().GetNext());
+
+        _activePlayer++;
+        if (_activePlayer >= _players.Count)
+        {
+            _activePlayer = 0;
+        }
     }
 
     public Field GetStartField() => startField;

@@ -1,6 +1,5 @@
 using Fields;
 using UnityEngine;
-using Debug = System.Diagnostics.Debug;
 
 public class Player : MonoBehaviour
 {
@@ -22,12 +21,6 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SetField(_currentField.GetNext());
-            return;
-        }
-
         if (_moveStep == MoveStep.Finish)
         {
             return;
@@ -53,6 +46,11 @@ public class Player : MonoBehaviour
         {
             LerpTo(q1, pB, MoveStep.Finish);
         }
+
+        if (_moveStep == MoveStep.RePosition)
+        {
+            LerpTo(pA, pB, MoveStep.Finish);
+        }
     }
 
     private void LerpTo(Vector3 start, Vector3 end, MoveStep nextStep)
@@ -67,10 +65,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void SetField(Field field)
+    public void SetField(Field field)
     {
         if (_currentField)
         {
+            _currentField.RemovePlayer(this);
             _lastPosition = transform.position;
         }
         
@@ -81,15 +80,28 @@ public class Player : MonoBehaviour
         _fieldId = _currentField.AddPlayer(this);
     }
 
+    public void SetFieldId(int id)
+    {
+        _fieldId = id;
+
+        if (_moveStep != MoveStep.Finish) return;
+        
+        _lastPosition = transform.position;
+        _moveStep = MoveStep.RePosition;
+    }
+
     public Player SetPlayerName(string name)
     {
         return this;
     }
+
+    public Field GetField() => _currentField;
 }
 
 internal enum MoveStep
 {
     Lerp1,
     Lerp2,
-    Finish
+    Finish,
+    RePosition
 }
