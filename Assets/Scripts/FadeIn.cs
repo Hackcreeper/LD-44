@@ -4,7 +4,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Text))]
 public class FadeIn : MonoBehaviour
 {
-    private const float SmoothFactor = .5f;
+    private const float SmoothFactor = .3f;
 
     [SerializeField]
     private Text text;
@@ -12,17 +12,20 @@ public class FadeIn : MonoBehaviour
     private FadeState _state = FadeState.FadeOut;
 
     private float _progress;
+    private float _wait = 1.3f;
     
     public void StartFadeIn()
     {
         _state = FadeState.FadeIn;
         _progress = 0f;
+        _wait = 1.3f;
     }
 
     public void StartFadeOut()
     {
         _state = FadeState.FadeOut;
         _progress = 0f;
+        _wait = 1.3f;
     }
 
     private void Update()
@@ -31,7 +34,18 @@ public class FadeIn : MonoBehaviour
         
         if (_state == FadeState.FadeIn)
         {
-            text.color = Color.Lerp(new Color(0, 0, 0, 0), new Color(0, 0, 0, 1), _progress);
+            if (_progress >= .3f)
+            {
+                _wait -= Time.deltaTime;
+                if (_wait <= 0f)
+                {
+                    StartFadeOut();
+                }
+                
+                return;
+            }
+            
+            text.color = Color.Lerp(text.color, new Color(0, 0, 0, 1), _progress);
             return;
         }
         
