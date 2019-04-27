@@ -26,10 +26,16 @@ public class Player : MonoBehaviour
     }
 
     private void Update()
-    {   
+    {
+        if (_moveStep == MoveStep.Stopped)
+        {
+            return;
+        }
+        
         if (_moveStep == MoveStep.Finish)
         {
             _movementFinishedCallback?.Invoke();
+            _currentField.OnEnter();
             
             return;
         }
@@ -120,6 +126,11 @@ public class Player : MonoBehaviour
     {
         _movementFinishedCallback = null;
     }
+
+    public void Stop()
+    {
+        _moveStep = MoveStep.Stopped;
+    }
 }
 
 internal enum MoveStep
@@ -127,5 +138,6 @@ internal enum MoveStep
     Lerp1,
     Lerp2,
     Finish,
-    RePosition
+    RePosition,
+    Stopped
 }

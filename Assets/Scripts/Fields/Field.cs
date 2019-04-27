@@ -89,5 +89,10 @@ namespace Fields
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(transform.position, nextField.transform.position);
         }
+
+        public virtual void OnEnter()
+        {
+            // Nothing
+        }
     }
 }

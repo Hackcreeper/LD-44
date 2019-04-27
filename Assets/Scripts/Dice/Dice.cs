@@ -52,7 +52,7 @@ namespace Dice
             RaycastHit hit;
             if (Physics.Raycast(transform.position, Vector3.down, out hit))
             {
-                if (hit.distance < 0.8f)
+                if (hit.distance < 0.9f)
                 {
                     _grounded = true;
                 }
