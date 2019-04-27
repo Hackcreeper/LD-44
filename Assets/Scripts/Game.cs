@@ -8,6 +8,9 @@ public class Game : MonoBehaviour
     [SerializeField]
     private Field startField;
 
+    [SerializeField]
+    private Transform camera; 
+
     public static Game Instance { private set; get; }
 
     private readonly List<Player> _players = new List<Player>();
@@ -53,6 +56,12 @@ public class Game : MonoBehaviour
     private void Update()
     {
         if (!Input.GetKeyDown(KeyCode.Space)) return;
+        
+        // Get dice brudi <3
+        var dice = Instantiate(Resources.Load<GameObject>("Dice"));
+        dice.transform.position = camera.transform.position + new Vector3(-4f, -3f, 0);
+
+        return;
         
         var player = _players[_activePlayer];
         player.SetField(player.GetField().GetNext());
