@@ -11,6 +11,17 @@ public class FollowingCamera : MonoBehaviour
     private Transform _target;
     
     private bool _rotating;
+    private bool _zooming;
+
+    private Quaternion _originalRotation;
+
+    [SerializeField]
+    private Transform _zoomTarget;
+
+    private void Start()
+    {
+        _originalRotation = transform.rotation;
+    }
 
     public void SetTarget(Transform target)
     {
@@ -33,19 +44,33 @@ public class FollowingCamera : MonoBehaviour
 
     private void Update()
     {
-        if (!_rotating)
+        if (_rotating)
         {
-            var position = _target.position;
-            transform.position = Vector3.Lerp(transform.position, new Vector3(
-                    position.x + _offset.x,
-                    13f,
-                    position.z + _offset.z
-                ), 4 * Time.deltaTime);
+            transform.LookAt(_target);
+            transform.Translate(RotateSpeed * Time.deltaTime * Vector3.right);
 
             return;
         }
+        
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            _zooming = !_zooming;
+        }
 
-        transform.LookAt(_target);
-        transform.Translate(Vector3.right * RotateSpeed * Time.deltaTime);
+        if (_zooming)
+        {
+            transform.position = Vector3.Lerp(transform.position, _zoomTarget.position, 4 * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, _zoomTarget.rotation, 4 * Time.deltaTime);
+            
+            return;
+        }
+
+        var position = _target.position;
+        transform.position = Vector3.Lerp(transform.position, new Vector3(
+                position.x + _offset.x,
+                13f,
+                position.z + _offset.z
+            ), 4 * Time.deltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, _originalRotation, 4 * Time.deltaTime);
     }
 }

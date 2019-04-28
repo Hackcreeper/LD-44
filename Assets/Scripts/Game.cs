@@ -486,4 +486,5 @@ public class Game : MonoBehaviour
         _waitTimer = 0f;
         _startTurnAfterWait = false;
     }
+
 }
