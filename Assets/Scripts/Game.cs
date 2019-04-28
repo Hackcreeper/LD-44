@@ -92,9 +92,9 @@ public class Game : MonoBehaviour
         // And if there is only one player / bot left, he will automatically win √
         // In this case, the camera should move to the player instead of the win zone √
         // Last but not least, if only bots are remaining, we will allow the user to press the {enter key} to skip the game √
+        // And from the winning screen, with the enter key the game should restart √
+        // And finally the credits should be shown in the win screen √
         
-        // And from the winning screen, with the enter key the game should restart
-        // And finally the credits should be shown in the win screen
         // Also show all player names in the turn order on the bottom right side with health preview
         // The current player should always be on top
         
