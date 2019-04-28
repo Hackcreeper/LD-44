@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fields
@@ -43,15 +42,15 @@ namespace Fields
         {
             if (_players.Count == 1)
             {
-                return new Vector3(0, .5f, 0);
+                return new Vector3(0, .62f, 0);
             }
 
             if (_players.Count == 2)
             {
                 return new[]
                 {
-                    new Vector3(Size / 4f - Size / 2f, .5f, Size / 4f - Size / 2f), 
-                    new Vector3(Size - Size / 4f - Size / 2f, .5f, Size - Size / 4f - Size / 2f), 
+                    new Vector3(Size / 4f - Size / 2f, .62f, Size / 4f - Size / 2f), 
+                    new Vector3(Size - Size / 4f - Size / 2f, .62f, Size - Size / 4f - Size / 2f), 
                 }[id-1];
             }
             
@@ -59,9 +58,9 @@ namespace Fields
             {
                 return new[]
                 {
-                    new Vector3(0f, 0.5f, Size / 4 - Size / 2),
-                    new Vector3(Size / 4f - Size / 2f, 0.5f, Size - Size / 4f - Size / 2f),
-                    new Vector3(Size - Size / 4f - Size / 2f, .5f, Size - Size / 4f - Size / 2f),
+                    new Vector3(0f, 0.62f, Size / 4 - Size / 2),
+                    new Vector3(Size / 4f - Size / 2f, 0.62f, Size - Size / 4f - Size / 2f),
+                    new Vector3(Size - Size / 4f - Size / 2f, .62f, Size - Size / 4f - Size / 2f),
                 }[id-1];
             }
             
@@ -69,10 +68,10 @@ namespace Fields
             {
                 return new[]
                 {
-                    new Vector3(Size / 4f - Size / 2f, .5f, Size / 4f - Size / 2f), 
-                    new Vector3(Size - Size / 4f - Size / 2f, .5f, Size / 4f - Size / 2f), 
-                    new Vector3(Size / 4f - Size / 2f, 0.5f, Size - Size / 4f - Size / 2f),
-                    new Vector3(Size - Size / 4f - Size / 2f, .5f, Size - Size / 4f - Size / 2f), 
+                    new Vector3(Size / 4f - Size / 2f, .62f, Size / 4f - Size / 2f), 
+                    new Vector3(Size - Size / 4f - Size / 2f, .62f, Size / 4f - Size / 2f), 
+                    new Vector3(Size / 4f - Size / 2f, 0.62f, Size - Size / 4f - Size / 2f),
+                    new Vector3(Size - Size / 4f - Size / 2f, .62f, Size - Size / 4f - Size / 2f), 
                 }[id-1];
             }
 
@@ -91,6 +90,11 @@ namespace Fields
         }
 
         public virtual void OnEnter()
+        {
+            // Nothing
+        }
+
+        public virtual void OnStay(Player player)
         {
             // Nothing
         }

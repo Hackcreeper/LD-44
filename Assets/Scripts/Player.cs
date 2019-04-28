@@ -16,8 +16,11 @@ public class Player : MonoBehaviour
 
     private string _playerName;
     private int _playerId;
+    private int _publicId;
 
     private Action _movementFinishedCallback;
+
+    private int _health = 10;
 
     private void Start()
     {
@@ -107,14 +110,22 @@ public class Player : MonoBehaviour
     {
         _playerName = newName;
         _playerId = id;
+        _publicId = id;
 
         return this;
+    }
+
+    public void RefreshPlayerId(int id)
+    {
+        _playerId = id;
     }
 
     public Field GetField() => _currentField;
 
     public string GetName() => _playerName;
     public int GetId() => _playerId;
+
+    public int GetPublicId() => _publicId;
 
     public void RegisterMovementFinishedCallback(Action callback)
     {
@@ -129,6 +140,29 @@ public class Player : MonoBehaviour
     public void Stop()
     {
         _moveStep = MoveStep.Stopped;
+    }
+
+    public virtual bool IsBot() => false;
+
+    public int GetHealth() => _health;
+
+    public void Hurt(int damage)
+    {
+        _health -= damage;
+        Game.Instance.RenderHearts();
+
+        if (_health <= 0)
+        {
+            Stop();
+            Game.Instance.Kill(this);
+            gameObject.AddComponent<Rigidbody>();
+        }
+    }
+
+    public void Heal(int points)
+    {
+        _health = Mathf.Clamp(_health + points, 0, 10);
+        Game.Instance.RenderHearts();
     }
 }
 
