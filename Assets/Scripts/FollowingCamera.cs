@@ -13,6 +13,8 @@ public class FollowingCamera : MonoBehaviour
     private bool _rotating;
     private bool _zooming;
 
+    private bool _preventZoom;
+
     private Quaternion _originalRotation;
 
     [SerializeField]
@@ -26,6 +28,18 @@ public class FollowingCamera : MonoBehaviour
     public void SetTarget(Transform target)
     {
         _target = target;
+    }
+
+    public void Zoom()
+    {
+        _zooming = true;
+        _preventZoom = true;
+    }
+
+    public void ExitZoom()
+    {
+        _zooming = false;
+        _preventZoom = false;
     }
 
     public void RotateAround()
@@ -52,7 +66,7 @@ public class FollowingCamera : MonoBehaviour
             return;
         }
         
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z) && !_preventZoom)
         {
             _zooming = !_zooming;
         }

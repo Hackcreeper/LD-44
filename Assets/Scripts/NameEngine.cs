@@ -39,7 +39,10 @@ public static class NameEngine
         "Otto",
         "Mr Peppsboy",
         "Duckman",
-        "The Cavalry"
+        "The Cavalry",
+        "Quake",
+        "Creel",
+        "Prof. Dr. Fitzsimmons"
     });
     
     public static string[] GetNames(int amount)

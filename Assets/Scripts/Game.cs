@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fields;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -29,6 +30,9 @@ public class Game : MonoBehaviour
     private GameObject _dice;
 
     [SerializeField]
+    private GameObject mainPanel;
+
+        [SerializeField]
     private Text playerIntroduction;
     
     [SerializeField]
@@ -42,9 +46,6 @@ public class Game : MonoBehaviour
 
     [SerializeField]
     private FollowingCamera followingCamera;
-
-    [SerializeField]
-    private Transform winHouse;
 
     [SerializeField]
     private Transform[] fireworkSpawner;
@@ -77,8 +78,20 @@ public class Game : MonoBehaviour
     private GameObject zoomPanel;
 
     [SerializeField]
-    private GameObject arrowInfo; 
+    private GameObject arrowInfo;
+
+    [SerializeField]
+    private GameObject walkInfo;
+
+    [SerializeField]
+    private Text walkInfoText;
     
+    [SerializeField]
+    private Text walkInfoTemplate;
+
+    [SerializeField]
+    private GameObject shortcutDialog;
+
     private float _botTimer = 1f;
     private float _waitTimer = 0f;
 
@@ -103,14 +116,14 @@ public class Game : MonoBehaviour
             SpawnPlayer(names[0], 1),
             SpawnPlayer(names[1], 2, true),
             SpawnPlayer(names[2], 3),
-            SpawnPlayer(names[3], 4, true)
+//            SpawnPlayer(names[3], 4, true)
         });
 
         var position = startField.transform.position;
         _players[0].transform.position = position + startField.GetOffset(1);
         _players[1].transform.position = position + startField.GetOffset(2);
         _players[2].transform.position = position + startField.GetOffset(3);
-        _players[3].transform.position = position + startField.GetOffset(4);
+//        _players[3].transform.position = position + startField.GetOffset(4);
         
         RenderInfoPanel();
 
@@ -225,13 +238,12 @@ public class Game : MonoBehaviour
             return;
         }
 
-        var player = _players[_activePlayer];
-        if (Input.GetKeyDown(KeyCode.K))
+        if (_won)
         {
-            player.Hurt(1);
+            return;
         }
         
-        
+        var player = _players[_activePlayer];
         if (!_inProgress)
         {
             if (player.IsBot())
@@ -336,6 +348,8 @@ public class Game : MonoBehaviour
         
         followingCamera.SetTarget(player.transform);
 
+        walkInfo.gameObject.SetActive(false);
+        
         playerIntroduction.text = playerIntroductionTemplate.text
             .Replace("{{prefix}}", player.IsBot() ? "Bot" : "Player")
             .Replace("{{id}}", id.ToString())
@@ -417,7 +431,7 @@ public class Game : MonoBehaviour
         return playerComp;
     }
 
-    public void Win()
+    public void Win(Player player)
     {
         _won = true;
         
@@ -426,9 +440,9 @@ public class Game : MonoBehaviour
         playerIntroduction.gameObject.SetActive(false);
         remainingFields.gameObject.SetActive(false);
         zoomPanel.SetActive(false);
+        walkInfo.SetActive(false);
         heartImages.ToList().ForEach(image => image.gameObject.SetActive(false));
 
-        var player = _players[_activePlayer];
         winInfo.text = winInfo.text
             .Replace("{{prefix}}", player.IsBot() ? "Bot" : "Player")
             .Replace("{{id}}", player.GetPublicId().ToString());
@@ -459,16 +473,17 @@ public class Game : MonoBehaviour
             _players[i-1].RefreshPlayerId(i);
         }
 
-        _remaining = 0;
-        _activePlayer--;
-        HandleFinishedMovement(player);
-
         if (_players.Count == 1)
         {
-            Win();
+            Win(_players.First());
             return;
         }
-
+        
+        _remaining = 0;
+        _activePlayer--;
+        
+        Wait(.1f, true);
+        
         if (_players.All(p => p.IsBot()))
         {
             infoRestart.SetActive(true);
@@ -498,5 +513,30 @@ public class Game : MonoBehaviour
     public void SetArrowInfoVisiblity(bool visible)
     {
         arrowInfo.SetActive(visible);
+    }
+
+    public void ShowWalkInfo(int fields, string direction)
+    {
+        walkInfoText.text = walkInfoTemplate.text
+            .Replace("{{num}}", fields.ToString())
+            .Replace("{{direction}}", direction);
+        
+        walkInfo.gameObject.SetActive(true);
+    }
+
+    public void ShowShortcutDialog(int costs, Player player, IShortcutField field)
+    {
+        mainPanel.SetActive(false);
+        shortcutDialog.SetActive(true);
+        
+        shortcutDialog.GetComponent<ShortcutDialog>().Init(field, player);
+    }
+
+    public FollowingCamera GetCamera() => followingCamera;
+
+    public void HideShortcutDialog()
+    {
+        shortcutDialog.SetActive(false);
+        mainPanel.SetActive(true);
     }
 }

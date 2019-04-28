@@ -1,6 +1,5 @@
 using System;
 using Fields;
-using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
