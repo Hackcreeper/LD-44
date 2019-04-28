@@ -87,25 +87,6 @@ public class Game : MonoBehaviour
 
     private void Awake()
     {
-        // Okay.. super simple -> add a life variable to the player object with def. value of 10 √
-        // Then we remove the color circle in the info bar √
-        // And replace it with heart icons √
-        // These will be build dynamically -> for each health point half a heart will be added √
-        // Empty heart containers will still remain √
-        // By default there are 5 health containers √
-        // If a player has less or equal to zero health, he'll die √
-        // This will remove the player from the game (maybe animate the figure) √
-        // And if there is only one player / bot left, he will automatically win √
-        // In this case, the camera should move to the player instead of the win zone √
-        // Last but not least, if only bots are remaining, we will allow the user to press the {enter key} to skip the game √
-        // And from the winning screen, with the enter key the game should restart √
-        // And finally the credits should be shown in the win screen √
-        // Also show all player names in the turn order on the bottom right side with health preview √
-        // And the health should update itself √
-        // Also killed players should be removed from the list (or striked through) √
-        
-        // The current player should always be on top
-        
         Instance = this;
         
         var names = NameEngine.GetNames(4);
@@ -149,6 +130,11 @@ public class Game : MonoBehaviour
             instance.transform.Find("Name").GetComponent<Text>().text
             .Replace("{{prefix}}", player.IsBot() ? "Bot" : "Player")
             .Replace("{{id}}", player.GetPublicId().ToString());
+
+        if (_players[_activePlayer] == player)
+        {
+            instance.GetComponent<Image>().enabled = true;
+        }
         
         // TODO: Health
         instance.SetActive(true);
