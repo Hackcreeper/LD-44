@@ -4,7 +4,7 @@ namespace Fields
     {
         public override void OnEnter(Player player)
         {
-            Game.Instance.Win();
+            Game.Instance.Win(player);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fields;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -29,6 +30,9 @@ public class Game : MonoBehaviour
     private GameObject _dice;
 
     [SerializeField]
+    private GameObject mainPanel;
+
+        [SerializeField]
     private Text playerIntroduction;
     
     [SerializeField]
@@ -42,9 +46,6 @@ public class Game : MonoBehaviour
 
     [SerializeField]
     private FollowingCamera followingCamera;
-
-    [SerializeField]
-    private Transform winHouse;
 
     [SerializeField]
     private Transform[] fireworkSpawner;
@@ -87,6 +88,9 @@ public class Game : MonoBehaviour
     
     [SerializeField]
     private Text walkInfoTemplate;
+
+    [SerializeField]
+    private GameObject shortcutDialog;
 
     private float _botTimer = 1f;
     private float _waitTimer = 0f;
@@ -231,6 +235,11 @@ public class Game : MonoBehaviour
 
             _startTurnAfterWait = false;
             
+            return;
+        }
+
+        if (_won)
+        {
             return;
         }
         
@@ -422,7 +431,7 @@ public class Game : MonoBehaviour
         return playerComp;
     }
 
-    public void Win()
+    public void Win(Player player)
     {
         _won = true;
         
@@ -434,7 +443,6 @@ public class Game : MonoBehaviour
         walkInfo.SetActive(false);
         heartImages.ToList().ForEach(image => image.gameObject.SetActive(false));
 
-        var player = _players[_activePlayer];
         winInfo.text = winInfo.text
             .Replace("{{prefix}}", player.IsBot() ? "Bot" : "Player")
             .Replace("{{id}}", player.GetPublicId().ToString());
@@ -467,7 +475,7 @@ public class Game : MonoBehaviour
 
         if (_players.Count == 1)
         {
-            Win();
+            Win(_players.First());
             return;
         }
         
@@ -514,5 +522,21 @@ public class Game : MonoBehaviour
             .Replace("{{direction}}", direction);
         
         walkInfo.gameObject.SetActive(true);
+    }
+
+    public void ShowShortcutDialog(int costs, Player player, IShortcutField field)
+    {
+        mainPanel.SetActive(false);
+        shortcutDialog.SetActive(true);
+        
+        shortcutDialog.GetComponent<ShortcutDialog>().Init(field, player);
+    }
+
+    public FollowingCamera GetCamera() => followingCamera;
+
+    public void HideShortcutDialog()
+    {
+        shortcutDialog.SetActive(false);
+        mainPanel.SetActive(true);
     }
 }
