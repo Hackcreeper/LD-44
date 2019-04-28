@@ -274,7 +274,7 @@ public class Game : MonoBehaviour
         {
             player.GetField().OnStay(player);
 
-            if (_startTurnAfterWait)
+            if (_waitTimer >= 0f)
             {
                 return;
             }
@@ -396,8 +396,7 @@ public class Game : MonoBehaviour
         
         instance.transform.position = startField.transform.position + new Vector3(0, .5f, 0);
         instance.GetComponentInChildren<MeshRenderer>().material.color = _colors[id - 1];
-
-
+        
         var playerComp = instance.GetComponent<Player>();
         if (bot)
         {
@@ -468,9 +467,17 @@ public class Game : MonoBehaviour
         }
     }
 
-    public void Wait(float seconds)
+    public void Wait(float seconds, bool startNewTurnAfterWait = true)
     {
-        _startTurnAfterWait = true;
+        _startTurnAfterWait = startNewTurnAfterWait;
         _waitTimer = seconds;
+    }
+
+    public void IncreaseRemaining(int remaining)
+    {
+        _moving = false;
+        _remaining += remaining;
+        
+        remainingFields.text = _remaining.ToString();
     }
 }
