@@ -73,7 +73,9 @@ public class Game : MonoBehaviour
     private GameObject playerList;
     
     private float _botTimer = 1f;
+    private float _waitTimer = 0f;
 
+    private bool _startTurnAfterWait;
     private bool _won;
 
     private readonly Color[] _colors = new[]
@@ -189,6 +191,33 @@ public class Game : MonoBehaviour
             return;
         }
 
+        if (_waitTimer > 0f)
+        {
+            _waitTimer -= Time.deltaTime;
+            return;
+        }
+
+        if (_startTurnAfterWait)
+        {
+            _moving = false;
+            _inProgress = false;
+            _diceFinished = false;
+            
+            Destroy(_dice);
+
+            _activePlayer++;
+            if (_activePlayer >= _players.Count)
+            {
+                _activePlayer = 0;
+            }
+            
+            StartTurn();
+
+            _startTurnAfterWait = false;
+            
+            return;
+        }
+
         var player = _players[_activePlayer];
         if (Input.GetKeyDown(KeyCode.K))
         {
@@ -244,6 +273,11 @@ public class Game : MonoBehaviour
         if (_remaining <= 0)
         {
             player.GetField().OnStay(player);
+
+            if (_startTurnAfterWait)
+            {
+                return;
+            }
             
             _moving = false;
             _inProgress = false;
@@ -432,5 +466,11 @@ public class Game : MonoBehaviour
         {
             infoRestart.SetActive(true);
         }
+    }
+
+    public void Wait(float seconds)
+    {
+        _startTurnAfterWait = true;
+        _waitTimer = seconds;
     }
 }
