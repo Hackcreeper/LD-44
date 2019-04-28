@@ -66,6 +66,12 @@ public class Game : MonoBehaviour
 
     [SerializeField]
     private GameObject infoRestart;
+
+    [SerializeField]
+    private GameObject infoTemplate;
+    
+    [SerializeField]
+    private GameObject playerList;
     
     private float _botTimer = 1f;
 
@@ -94,8 +100,10 @@ public class Game : MonoBehaviour
         // Last but not least, if only bots are remaining, we will allow the user to press the {enter key} to skip the game √
         // And from the winning screen, with the enter key the game should restart √
         // And finally the credits should be shown in the win screen √
+        // Also show all player names in the turn order on the bottom right side with health preview √
+        // And the health should update itself √
+        // Also killed players should be removed from the list (or striked through) √
         
-        // Also show all player names in the turn order on the bottom right side with health preview
         // The current player should always be on top
         
         Instance = this;
@@ -114,8 +122,74 @@ public class Game : MonoBehaviour
         _players[1].transform.position = position + startField.GetOffset(2);
         _players[2].transform.position = position + startField.GetOffset(3);
         _players[3].transform.position = position + startField.GetOffset(4);
+        
+        RenderInfoPanel();
 
         StartTurn();
+    }
+
+    private void RenderInfoPanel()
+    {
+        for (int i = 1; i < playerList.transform.childCount; i++)
+        {
+            Destroy(playerList.transform.GetChild(i).gameObject);
+        }
+        
+        foreach (var player in _players)
+        {
+            AddPlayerToInfoPanel(player);
+        }
+    }
+
+    private void AddPlayerToInfoPanel(Player player)
+    {
+        var instance = Instantiate(infoTemplate, playerList.transform);
+        instance.transform.Find("Color").GetComponent<Image>().color = _colors[player.GetId() - 1];
+        instance.transform.Find("Name").GetComponent<Text>().text = 
+            instance.transform.Find("Name").GetComponent<Text>().text
+            .Replace("{{prefix}}", player.IsBot() ? "Bot" : "Player")
+            .Replace("{{id}}", player.GetPublicId().ToString());
+        
+        // TODO: Health
+        instance.SetActive(true);
+
+        var images = instance.transform.Find("HealthBar").GetComponentsInChildren<Image>();
+        var health = player.GetHealth();
+        
+        images[0].sprite =
+            health <= 0
+                ? emptyHeart
+                : health == 1
+                    ? halfHeart
+                    : fullHeart;
+
+        images[1].sprite =
+            health <= 2
+                ? emptyHeart
+                : health == 3
+                    ? halfHeart
+                    : fullHeart;
+
+        images[2].sprite =
+            health <= 4
+                ? emptyHeart
+                : health == 5
+                    ? halfHeart
+                    : fullHeart;
+
+        images[3].sprite =
+            health <= 6
+                ? emptyHeart
+                : health == 7
+                    ? halfHeart
+                    : fullHeart;
+
+        images[4].sprite =
+            health <= 8
+                ? emptyHeart
+                : health == 9
+                    ? halfHeart
+                    : fullHeart;
     }
 
     private void Update()
@@ -288,6 +362,8 @@ public class Game : MonoBehaviour
                 : health == 9
                     ? halfHeart
                     : fullHeart;
+        
+        RenderInfoPanel();
     }
 
     public Field GetStartField() => startField;
