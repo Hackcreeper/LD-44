@@ -65,10 +65,8 @@ namespace Dice
 
         private int GetHighestFace()
         {
-            return 1;
-            
             var highest = float.MinValue;
-            int highestFace = 1;
+            var highestFace = 1;
             
             foreach (var face in _faces)
             {
@@ -80,7 +78,7 @@ namespace Dice
                 }
             }
             
-            return highestFace;
+            return highestFace * 10;
         }
 
         public void RegisterCallback(Action<int> callback)

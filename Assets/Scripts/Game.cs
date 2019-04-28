@@ -71,6 +71,9 @@ public class Game : MonoBehaviour
     
     [SerializeField]
     private GameObject playerList;
+
+    [SerializeField]
+    private GameObject _zoomPanel;
     
     private float _botTimer = 1f;
     private float _waitTimer = 0f;
@@ -418,6 +421,7 @@ public class Game : MonoBehaviour
         
         playerIntroduction.gameObject.SetActive(false);
         remainingFields.gameObject.SetActive(false);
+        _zoomPanel.SetActive(false);
         heartImages.ToList().ForEach(image => image.gameObject.SetActive(false));
 
         var player = _players[_activePlayer];

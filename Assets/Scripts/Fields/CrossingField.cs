@@ -9,6 +9,10 @@ namespace Fields
         private Field[] additionalFields;
 
         private static readonly List<GameObject> Arrows = new List<GameObject>();
+
+        private bool _waitingForBot = false;
+        private float _waitTimer;
+        private Player _bot;
         
         public override void OnEnter(Player player)
         {
@@ -33,11 +37,22 @@ namespace Fields
                     arrow.transform.rotation.eulerAngles.y - 90,
                     0
                 );
-                
+
                 arrow.GetComponent<Arrow>().Init(player, field);
+                if (player.IsBot())
+                {
+                    _bot = player;
+                    arrow.GetComponent<Arrow>().enabled = false;
+                }
 
                 Arrows.Add(arrow);
             });
+
+            if (player.IsBot())
+            {
+                _waitingForBot = true;
+                _waitTimer = Random.Range(1f, 2f);
+            }
             
             Game.Instance.Wait(float.MaxValue);
         }
@@ -55,6 +70,30 @@ namespace Fields
             player.SetField(field);
 
             Game.Instance.StopWaiting();
+        }
+
+        private void Update()
+        {
+            if (!_waitingForBot)
+            {
+                return;
+            }
+
+            _waitTimer -= Time.deltaTime;
+
+            if (_waitTimer > 0f)
+            {
+                return;
+            }
+            
+            var fields = new List<Field> {nextField};
+            fields.AddRange(additionalFields);
+
+            PathSelected(fields[Random.Range(0, fields.Count)], _bot);
+            
+            _waitTimer = 0f;
+            _waitingForBot = false;
+            _bot = null;
         }
 
         protected override void OnDrawGizmos()
