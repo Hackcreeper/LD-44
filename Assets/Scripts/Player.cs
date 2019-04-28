@@ -158,6 +158,12 @@ public class Player : MonoBehaviour
             gameObject.AddComponent<Rigidbody>();
         }
     }
+
+    public void Heal(int points)
+    {
+        _health = Mathf.Clamp(_health + points, 0, 10);
+        Game.Instance.RenderHearts();
+    }
 }
 
 internal enum MoveStep
