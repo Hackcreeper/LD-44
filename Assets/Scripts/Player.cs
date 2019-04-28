@@ -152,10 +152,10 @@ public class Player : MonoBehaviour
         _health -= damage;
         Game.Instance.RenderHearts();
 
-        // Spawn hurt bubble
-        var bubble = Instantiate(Resources.Load<GameObject>("HealthPopup"));
-        bubble.transform.position = transform.position + new Vector3(0, 1.18f, -0.75f);
-        bubble.GetComponent<TextMeshPro>().text = $"-{damage} health";
+        SpawnBubble(-damage);
+
+        var blood = Instantiate(Resources.Load<GameObject>("BloodParticles"));
+        blood.transform.position = transform.position;
 
         if (_health <= 0)
         {
@@ -165,10 +165,19 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void SpawnBubble(int points)
+    {
+        var bubble = Instantiate(Resources.Load<GameObject>("HealthPopup"));
+        bubble.transform.position = transform.position + new Vector3(0, 1.18f, -0.75f);
+        bubble.GetComponent<Popup>().SetPoints(points);
+    }
+
     public void Heal(int points)
     {
         _health = Mathf.Clamp(_health + points, 0, 10);
         Game.Instance.RenderHearts();
+
+        SpawnBubble(points);
     }
 }
 
