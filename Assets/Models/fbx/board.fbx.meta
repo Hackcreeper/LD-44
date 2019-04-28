@@ -26,11 +26,6 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: No Name
-    second: {fileID: 2100000, guid: d9214dba2d5de4ea2ac1eafad573ab72, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
       name: Win
     second: {fileID: 2100000, guid: ef5c15c812ef24fc89a88f64fb562483, type: 2}
   - first:
