@@ -86,12 +86,15 @@ namespace Fields
             
             Game.Instance.HideShortcutDialog();
             Game.Instance.GetCamera().ExitZoom();
-            Game.Instance.StopWaiting();
             
-            player.Hurt(GetPrice());
+            BoatAnimation.Instance.StartAnimation(player);
             
-            player.RegisterMovementFinishedCallback(() => { Game.Instance.HandleFinishedMovement(player); });
-            player.SetField(target);
+//            Game.Instance.StopWaiting();
+//            
+//            player.Hurt(GetPrice());
+//            
+//            player.RegisterMovementFinishedCallback(() => { Game.Instance.HandleFinishedMovement(player); });
+//            player.SetField(target);
         }
 
         public void Canceled(Player player)

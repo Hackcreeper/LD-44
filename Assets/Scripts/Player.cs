@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private const float LerpingModifier = 3f;
+    public const float LerpingModifier = 3f;
     
     private Vector3? _lastPosition;
     private Field _currentField;
