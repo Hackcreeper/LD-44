@@ -10,7 +10,7 @@ namespace Fields
 
         private List<GameObject> _arrows = new List<GameObject>();
         
-        public override void OnStay(Player player)
+        public override void OnEnter(Player player)
         {
             Game.Instance.GetCamera().Zoom();
             Game.Instance.ShowShortcutDialog(GetPrice() / 2, player, this);
@@ -91,7 +91,7 @@ namespace Fields
             player.Hurt(6);
             
             player.RegisterMovementFinishedCallback(() => { Game.Instance.HandleFinishedMovement(player); });
-            player.SetField(target);            
+            player.SetField(target);
         }
 
         public void Canceled(Player player)
@@ -102,7 +102,9 @@ namespace Fields
             Game.Instance.HideShortcutDialog();
             Game.Instance.GetCamera().ExitZoom();
             Game.Instance.StopWaiting();
-            Game.Instance.Wait(.1f);
+
+            player.RegisterMovementFinishedCallback(() => { Game.Instance.HandleFinishedMovement(player); });
+            player.SetField(player.GetField().GetNext());
         }
 
         public int GetPrice() => 6;
