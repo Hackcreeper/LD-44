@@ -65,6 +65,8 @@ namespace Dice
 
         private int GetHighestFace()
         {
+            return 1;
+            
             var highest = float.MinValue;
             int highestFace = 1;
             
