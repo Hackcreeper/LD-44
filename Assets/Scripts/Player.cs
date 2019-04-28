@@ -1,5 +1,6 @@
 using System;
 using Fields;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -150,6 +151,11 @@ public class Player : MonoBehaviour
     {
         _health -= damage;
         Game.Instance.RenderHearts();
+
+        // Spawn hurt bubble
+        var bubble = Instantiate(Resources.Load<GameObject>("HealthPopup"));
+        bubble.transform.position = transform.position + new Vector3(0, 1.18f, -0.75f);
+        bubble.GetComponent<TextMeshPro>().text = $"-{damage} health";
 
         if (_health <= 0)
         {
