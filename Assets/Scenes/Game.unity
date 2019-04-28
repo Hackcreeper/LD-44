@@ -4412,6 +4412,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5509717626991923963, guid: 925706cf0e8b74c8581208c26d429f3e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5509717626991923963, guid: 925706cf0e8b74c8581208c26d429f3e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -89.98
+      objectReference: {fileID: 0}
     - target: {fileID: 8683631873402722485, guid: 925706cf0e8b74c8581208c26d429f3e,
         type: 3}
       propertyPath: m_Enabled
@@ -5423,10 +5433,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2060319146}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 0273f32f74f643eaa0178c7cf1f6c962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319293}
+  previousFields: []
+  backwards: 0
 --- !u!114 &2060319156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7165,10 +7177,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2060319143}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 0273f32f74f643eaa0178c7cf1f6c962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319290}
+  previousFields:
+  - {fileID: 2060319292}
+  - {fileID: 2060319293}
+  - {fileID: 2060319155}
+  - {fileID: 2060319295}
+  backwards: 1
 --- !u!114 &2060319292
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -72,6 +72,21 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: sign backward
+    second: {fileID: 2100000, guid: 08e19b51b186e4cc7bc272b986544f29, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sign forward
+    second: {fileID: 2100000, guid: 282008d0ea6654895a75bc4f8352070a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: spike
+    second: {fileID: 2100000, guid: d9214dba2d5de4ea2ac1eafad573ab72, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: stairs
     second: {fileID: 2100000, guid: 90d132ad704c54881849501ac876a2ed, type: 2}
   - first:
@@ -111,7 +126,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 0.4
