@@ -79,7 +79,7 @@ public class Game : MonoBehaviour
     private readonly Color[] _colors = new[]
     {
         Color.green,
-        Color.blue,
+        Color.cyan,
         Color.red,
         Color.yellow,
     };
