@@ -202,7 +202,7 @@ ModelImporter:
       name: BoatEnd
       takeName: Boat|ArmatureAction
       internalID: 3720683401502455489
-      firstFrame: 200
+      firstFrame: 180
       lastFrame: 240
       wrapMode: 0
       orientationOffsetY: 0

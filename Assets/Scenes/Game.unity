@@ -261,6 +261,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &170196859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 170196860}
+  m_Layer: 0
+  m_Name: Empty_Custom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &170196860
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170196859}
+  m_LocalRotation: {x: -0.7071062, y: 0.00094679, z: -0.7071061, w: 0.0009468198}
+  m_LocalPosition: {x: 0.00126, y: 0.00191, z: -0.00004}
+  m_LocalScale: {x: 0.10431513, y: 0.10430981, z: 0.104302876}
+  m_Children: []
+  m_Father: {fileID: 1318317122}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &182142416
 GameObject:
   m_ObjectHideFlags: 0
@@ -2752,6 +2782,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 0}
+--- !u!4 &1318317122 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7499840821072611880, guid: 925706cf0e8b74c8581208c26d429f3e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2060319000}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1329140510
 GameObject:
   m_ObjectHideFlags: 0
@@ -3320,6 +3356,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1618836761}
   - component: {fileID: 1618836762}
+  - component: {fileID: 1618836763}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -3391,6 +3428,20 @@ MonoBehaviour:
   shortcutButtons: {fileID: 1489441198}
   shortcutInfo: {fileID: 8742848}
   shortcutTemplate: {fileID: 678403433}
+--- !u!114 &1618836763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618836760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2936cb5e962644a4b05cb61d4e4fcf60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInBoat: {fileID: 170196860}
+  boatAnimator: {fileID: 2060319007}
 --- !u!1 &1645251037
 GameObject:
   m_ObjectHideFlags: 0
@@ -6143,6 +6194,12 @@ GameObject:
 --- !u!1 &2060319006 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6888250291105295742, guid: 925706cf0e8b74c8581208c26d429f3e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2060319000}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2060319007 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: -6057140222963153312, guid: 925706cf0e8b74c8581208c26d429f3e,
     type: 3}
   m_PrefabInstance: {fileID: 2060319000}
   m_PrefabAsset: {fileID: 0}
