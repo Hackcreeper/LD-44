@@ -395,6 +395,12 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!4 &251450890 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6093956707074076517, guid: 925706cf0e8b74c8581208c26d429f3e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2060319000}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &258891125
 GameObject:
   m_ObjectHideFlags: 0
@@ -2284,6 +2290,31 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7221214, y: 0.30651206, z: 0.00063347624}
   m_Center: {x: -0.2571111, y: 0.014743944, z: -0.000044382814}
+--- !u!1 &1110398163 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7866193871745621435, guid: 925706cf0e8b74c8581208c26d429f3e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2060319000}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1110398164
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110398163}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1dd9d131ce49246e78baf2b84f8155e1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1144535852
 GameObject:
   m_ObjectHideFlags: 0
@@ -2782,6 +2813,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 0}
+--- !u!1 &1300741181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1300741182}
+  m_Layer: 0
+  m_Name: PlayerQ
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1300741182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300741181}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.01102, z: -0.00444}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 251450890}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1318317122 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7499840821072611880, guid: 925706cf0e8b74c8581208c26d429f3e,
@@ -3357,6 +3418,7 @@ GameObject:
   - component: {fileID: 1618836761}
   - component: {fileID: 1618836762}
   - component: {fileID: 1618836763}
+  - component: {fileID: 1618836764}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -3442,6 +3504,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInBoat: {fileID: 170196860}
   boatAnimator: {fileID: 2060319007}
+--- !u!114 &1618836764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618836760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f8855fb5fc64a67ab85bc51cf4a46e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerPosition: {fileID: 1300741182}
 --- !u!1 &1645251037
 GameObject:
   m_ObjectHideFlags: 0
@@ -7836,10 +7911,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2060319057}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 87c2e3a5902746cabcfb35b72395f006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319085}
+  animator: {fileID: 1110398164}
 --- !u!114 &2060319206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7862,10 +7938,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2060319059}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b0bc04ec74043878108185a8cc79d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319206}
+  target: {fileID: 2060319198}
 --- !u!114 &2060319208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8975,7 +9052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextField: {fileID: 2060319219}
+  nextField: {fileID: 2060319297}
 --- !u!114 &2060319297
 MonoBehaviour:
   m_ObjectHideFlags: 0
