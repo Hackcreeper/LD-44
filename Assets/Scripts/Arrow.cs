@@ -13,6 +13,16 @@ public class Arrow : MonoBehaviour
         CrossingField.PathSelected(_target, _player);
     }
 
+    private void OnMouseEnter()
+    {
+        GetComponentInChildren<MeshRenderer>().material.color = Color.yellow;
+    }
+    
+    private void OnMouseExit()
+    {
+        GetComponentInChildren<MeshRenderer>().material.color = Color.red;
+    }
+
     public void Init(Player player, Field target)
     {
         _player = player;
