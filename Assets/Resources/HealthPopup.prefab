@@ -218,3 +218,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textComponent: {fileID: 4194296139893307157}
+  _negativeColor: {r: 1, g: 0, b: 0.02745098, a: 1}
+  _positiveColor: {r: 0, g: 0.33962262, b: 0.059331674, a: 1}

@@ -63,7 +63,7 @@ namespace Dice
             }
         }
 
-        public int GetHighestFace()
+        private int GetHighestFace()
         {
             var highest = float.MinValue;
             int highestFace = 1;
