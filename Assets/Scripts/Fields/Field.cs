@@ -5,8 +5,7 @@ namespace Fields
 {
     public class Field : MonoBehaviour
     {
-        [SerializeField]
-        private Field nextField;
+        [SerializeField] protected Field nextField;
 
         public Field GetNext() => nextField;
 
@@ -78,7 +77,7 @@ namespace Fields
             return Vector3.zero;
         }
 
-        private void OnDrawGizmos()
+        protected virtual void OnDrawGizmos()
         {
             if (!nextField)
             {
@@ -89,7 +88,7 @@ namespace Fields
             Gizmos.DrawLine(transform.position, nextField.transform.position);
         }
 
-        public virtual void OnEnter()
+        public virtual void OnEnter(Player player)
         {
             // Nothing
         }

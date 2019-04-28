@@ -260,9 +260,9 @@ public class Game : MonoBehaviour
     public void HandleFinishedMovement(Player player)
     {
         player.ClearCallback();
-        player.GetField().OnEnter();
+        player.GetField().OnEnter(player);
 
-        if (_won)
+        if (_won || _waitTimer > 0f)
         {
             return;
         }
@@ -274,7 +274,7 @@ public class Game : MonoBehaviour
         {
             player.GetField().OnStay(player);
 
-            if (_waitTimer >= 0f)
+            if (_waitTimer > 0f)
             {
                 return;
             }
@@ -479,5 +479,11 @@ public class Game : MonoBehaviour
         _remaining += remaining;
         
         remainingFields.text = _remaining.ToString();
+    }
+
+    public void StopWaiting()
+    {
+        _waitTimer = 0f;
+        _startTurnAfterWait = false;
     }
 }

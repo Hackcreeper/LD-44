@@ -4359,8 +4359,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6609481658326264443, guid: 925706cf0e8b74c8581208c26d429f3e,
         type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6609481658326264443, guid: 925706cf0e8b74c8581208c26d429f3e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6609481658326264443, guid: 925706cf0e8b74c8581208c26d429f3e,
+        type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2232826
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6154302162246629364, guid: 925706cf0e8b74c8581208c26d429f3e,
         type: 3}
@@ -5433,12 +5443,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2060319146}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0273f32f74f643eaa0178c7cf1f6c962, type: 3}
+  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319293}
-  previousFields: []
-  backwards: 0
 --- !u!114 &2060319156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6440,6 +6448,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319231}
+--- !u!114 &2060319233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060319098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ff0b1cecf94b75b345868a27bddb5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextField: {fileID: 2060319239}
+  additionalFields:
+  - {fileID: 2060319243}
 --- !u!114 &2060319234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6582,7 +6605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextField: {fileID: 2060319246}
+  nextField: {fileID: 2060319233}
 --- !u!114 &2060319245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6596,19 +6619,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319244}
---- !u!114 &2060319246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2060319098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextField: {fileID: 2060319243}
 --- !u!114 &2060319247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6982,10 +6992,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2060319127}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 83ff0b1cecf94b75b345868a27bddb5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextField: {fileID: 2060319271}
+  nextField: {fileID: 2060319274}
+  additionalFields:
+  - {fileID: 2060319271}
 --- !u!114 &2060319276
 MonoBehaviour:
   m_ObjectHideFlags: 0
