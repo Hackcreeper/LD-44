@@ -112,14 +112,14 @@ public class Game : MonoBehaviour
             SpawnPlayer(names[0], 1),
             SpawnPlayer(names[1], 2, true),
             SpawnPlayer(names[2], 3),
-            SpawnPlayer(names[3], 4, true)
+//            SpawnPlayer(names[3], 4, true)
         });
 
         var position = startField.transform.position;
         _players[0].transform.position = position + startField.GetOffset(1);
         _players[1].transform.position = position + startField.GetOffset(2);
         _players[2].transform.position = position + startField.GetOffset(3);
-        _players[3].transform.position = position + startField.GetOffset(4);
+//        _players[3].transform.position = position + startField.GetOffset(4);
         
         RenderInfoPanel();
 
@@ -233,14 +233,8 @@ public class Game : MonoBehaviour
             
             return;
         }
-
+        
         var player = _players[_activePlayer];
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            player.Hurt(1);
-        }
-        
-        
         if (!_inProgress)
         {
             if (player.IsBot())
@@ -471,16 +465,17 @@ public class Game : MonoBehaviour
             _players[i-1].RefreshPlayerId(i);
         }
 
-        _remaining = 0;
-        _activePlayer--;
-        HandleFinishedMovement(player);
-
         if (_players.Count == 1)
         {
             Win();
             return;
         }
-
+        
+        _remaining = 0;
+        _activePlayer--;
+        
+        Wait(.1f, true);
+        
         if (_players.All(p => p.IsBot()))
         {
             infoRestart.SetActive(true);
