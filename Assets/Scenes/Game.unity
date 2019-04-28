@@ -1209,7 +1209,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Do you want to take this shortcut?
 
-    <size=22>Costs: <color=red>{{costs}} hearts</color></size>'
+    <size=22>Costs: <color=red>{{price}} hearts</color></size>'
 --- !u!222 &678403434
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3389,6 +3389,8 @@ MonoBehaviour:
   walkInfoTemplate: {fileID: 1190236591}
   shortcutDialog: {fileID: 1144535852}
   shortcutButtons: {fileID: 1489441198}
+  shortcutInfo: {fileID: 8742848}
+  shortcutTemplate: {fileID: 678403433}
 --- !u!1 &1645251037
 GameObject:
   m_ObjectHideFlags: 0
@@ -6101,6 +6103,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000,
         type: 0}
+    - target: {fileID: -6057140222963153312, guid: 925706cf0e8b74c8581208c26d429f3e,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9120035dd1c434264a2a226383898f95, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 925706cf0e8b74c8581208c26d429f3e, type: 3}
 --- !u!4 &2060319001 stripped
@@ -6139,19 +6146,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2060319000}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2060319007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2060319006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextField: {fileID: 2060319153}
 --- !u!1 &2060319008 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5774084382707724617, guid: 925706cf0e8b74c8581208c26d429f3e,
@@ -7078,6 +7072,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319152}
+--- !u!114 &2060319154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060319006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextField: {fileID: 2060319153}
 --- !u!114 &2060319155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7103,7 +7110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0273f32f74f643eaa0178c7cf1f6c962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextField: {fileID: 2060319007}
+  nextField: {fileID: 2060319154}
   previousFields:
   - {fileID: 2060319157}
   - {fileID: 2060319158}
@@ -7950,11 +7957,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 2060319147}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b0bc04ec74043878108185a8cc79d45, type: 3}
+  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319155}
-  target: {fileID: 2060319157}
+--- !u!114 &2060319219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060319112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6356ac6ff3de443597ddddb77ac30e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextField: {fileID: 2060319256}
+  target: {fileID: 2060319246}
 --- !u!114 &2060319220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8442,7 +8462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextField: {fileID: 2060319260}
+  nextField: {fileID: 2060319219}
 --- !u!114 &2060319258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8469,19 +8489,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319258}
---- !u!114 &2060319260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2060319112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextField: {fileID: 2060319256}
 --- !u!114 &2060319261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8494,7 +8501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextField: {fileID: 2060319260}
+  nextField: {fileID: 2060319219}
 --- !u!114 &2060319262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8911,7 +8918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextField: {fileID: 2060319297}
+  nextField: {fileID: 2060319219}
 --- !u!114 &2060319297
 MonoBehaviour:
   m_ObjectHideFlags: 0

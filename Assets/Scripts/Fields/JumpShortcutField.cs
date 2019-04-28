@@ -88,7 +88,7 @@ namespace Fields
             Game.Instance.GetCamera().ExitZoom();
             Game.Instance.StopWaiting();
             
-            player.Hurt(6);
+            player.Hurt(GetPrice());
             
             player.RegisterMovementFinishedCallback(() => { Game.Instance.HandleFinishedMovement(player); });
             player.SetField(target);
