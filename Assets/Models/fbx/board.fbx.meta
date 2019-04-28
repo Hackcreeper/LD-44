@@ -27,6 +27,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: boat
+    second: {fileID: 2100000, guid: ede744ed11e724285b3817f0792f680d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: bridge 1
     second: {fileID: 2100000, guid: 090a01b3d68e348a3a0007af74c583b3, type: 2}
   - first:
