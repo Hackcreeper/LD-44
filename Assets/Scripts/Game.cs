@@ -257,7 +257,7 @@ public class Game : MonoBehaviour
         player.RegisterMovementFinishedCallback(() => { HandleFinishedMovement(player); });
     }
 
-    private void HandleFinishedMovement(Player player)
+    public void HandleFinishedMovement(Player player)
     {
         player.ClearCallback();
         player.GetField().OnEnter();
