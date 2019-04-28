@@ -91,6 +91,9 @@ public class Game : MonoBehaviour
 
     [SerializeField]
     private GameObject shortcutDialog;
+    
+    [SerializeField]
+    private GameObject shortcutButtons;
 
     private float _botTimer = 1f;
     private float _waitTimer = 0f;
@@ -530,6 +533,7 @@ public class Game : MonoBehaviour
         shortcutDialog.SetActive(true);
         
         shortcutDialog.GetComponent<ShortcutDialog>().Init(field, player);
+        shortcutButtons.SetActive(!player.IsBot());
     }
 
     public FollowingCamera GetCamera() => followingCamera;
