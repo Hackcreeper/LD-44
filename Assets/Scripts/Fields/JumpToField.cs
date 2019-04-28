@@ -18,10 +18,13 @@ namespace Fields
             {
                 player.RegisterMovementFinishedCallback(() => { Game.Instance.HandleFinishedMovement(player); });
                 player.SetField(previousFields[random * -1 - 1]);
+                
+                Game.Instance.ShowWalkInfo(random * -1, "backwards");
             }
             else
             {
-                Game.Instance.IncreaseRemaining(random);    
+                Game.Instance.IncreaseRemaining(random);
+                Game.Instance.ShowWalkInfo(random, "forward");
             }
             
             Game.Instance.Wait(.1f, false);

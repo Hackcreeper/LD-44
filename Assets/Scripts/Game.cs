@@ -77,8 +77,17 @@ public class Game : MonoBehaviour
     private GameObject zoomPanel;
 
     [SerializeField]
-    private GameObject arrowInfo; 
+    private GameObject arrowInfo;
+
+    [SerializeField]
+    private GameObject walkInfo;
+
+    [SerializeField]
+    private Text walkInfoText;
     
+    [SerializeField]
+    private Text walkInfoTemplate;
+
     private float _botTimer = 1f;
     private float _waitTimer = 0f;
 
@@ -336,6 +345,8 @@ public class Game : MonoBehaviour
         
         followingCamera.SetTarget(player.transform);
 
+        walkInfo.gameObject.SetActive(false);
+        
         playerIntroduction.text = playerIntroductionTemplate.text
             .Replace("{{prefix}}", player.IsBot() ? "Bot" : "Player")
             .Replace("{{id}}", id.ToString())
@@ -426,6 +437,7 @@ public class Game : MonoBehaviour
         playerIntroduction.gameObject.SetActive(false);
         remainingFields.gameObject.SetActive(false);
         zoomPanel.SetActive(false);
+        walkInfo.SetActive(false);
         heartImages.ToList().ForEach(image => image.gameObject.SetActive(false));
 
         var player = _players[_activePlayer];
@@ -498,5 +510,14 @@ public class Game : MonoBehaviour
     public void SetArrowInfoVisiblity(bool visible)
     {
         arrowInfo.SetActive(visible);
+    }
+
+    public void ShowWalkInfo(int fields, string direction)
+    {
+        walkInfoText.text = walkInfoTemplate.text
+            .Replace("{{num}}", fields.ToString())
+            .Replace("{{direction}}", direction);
+        
+        walkInfo.gameObject.SetActive(true);
     }
 }

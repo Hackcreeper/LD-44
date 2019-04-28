@@ -78,7 +78,7 @@ namespace Dice
                 }
             }
             
-            return highestFace * 10;
+            return highestFace;
         }
 
         public void RegisterCallback(Action<int> callback)
