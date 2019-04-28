@@ -3,6 +3,7 @@ using System.Linq;
 using Fields;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -72,8 +73,11 @@ public class Game : MonoBehaviour
     [SerializeField]
     private GameObject playerList;
 
+    [FormerlySerializedAs("_zoomPanel")] [SerializeField]
+    private GameObject zoomPanel;
+
     [SerializeField]
-    private GameObject _zoomPanel;
+    private GameObject arrowInfo; 
     
     private float _botTimer = 1f;
     private float _waitTimer = 0f;
@@ -421,7 +425,7 @@ public class Game : MonoBehaviour
         
         playerIntroduction.gameObject.SetActive(false);
         remainingFields.gameObject.SetActive(false);
-        _zoomPanel.SetActive(false);
+        zoomPanel.SetActive(false);
         heartImages.ToList().ForEach(image => image.gameObject.SetActive(false));
 
         var player = _players[_activePlayer];
@@ -491,4 +495,8 @@ public class Game : MonoBehaviour
         _startTurnAfterWait = false;
     }
 
+    public void SetArrowInfoVisiblity(bool visible)
+    {
+        arrowInfo.SetActive(visible);
+    }
 }

@@ -42,7 +42,11 @@ namespace Fields
                 if (player.IsBot())
                 {
                     _bot = player;
-                    arrow.GetComponent<Arrow>().enabled = false;
+                    Destroy(arrow.GetComponent<Arrow>());
+                }
+                else
+                {
+                    Game.Instance.SetArrowInfoVisiblity(true);
                 }
 
                 Arrows.Add(arrow);
@@ -65,6 +69,7 @@ namespace Fields
             });
             
             Arrows.Clear();
+            Game.Instance.SetArrowInfoVisiblity(false);
             
             player.RegisterMovementFinishedCallback(() => { Game.Instance.HandleFinishedMovement(player); });
             player.SetField(field);
