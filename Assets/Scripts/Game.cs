@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Fields;
@@ -244,6 +243,8 @@ public class Game : MonoBehaviour
         remainingFields.text = _remaining.ToString();
         if (_remaining <= 0)
         {
+            player.GetField().OnStay(player);
+            
             _moving = false;
             _inProgress = false;
             _diceFinished = false;

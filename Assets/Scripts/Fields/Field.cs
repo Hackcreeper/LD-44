@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fields
@@ -91,6 +90,11 @@ namespace Fields
         }
 
         public virtual void OnEnter()
+        {
+            // Nothing
+        }
+
+        public virtual void OnStay(Player player)
         {
             // Nothing
         }
