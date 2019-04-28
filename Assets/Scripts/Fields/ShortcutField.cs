@@ -5,5 +5,7 @@ namespace Fields
         void Accepted(Player player);
 
         void Canceled(Player player);
+
+        int GetPrice();
     }
 }
