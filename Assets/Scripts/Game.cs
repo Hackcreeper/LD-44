@@ -95,6 +95,12 @@ public class Game : MonoBehaviour
     [SerializeField]
     private GameObject shortcutButtons;
 
+    [SerializeField]
+    private Text shortcutInfo;
+    
+    [SerializeField]
+    private Text shortcutTemplate;
+
     private float _botTimer = 1f;
     private float _waitTimer = 0f;
 
@@ -527,8 +533,10 @@ public class Game : MonoBehaviour
         walkInfo.gameObject.SetActive(true);
     }
 
-    public void ShowShortcutDialog(int costs, Player player, IShortcutField field)
+    public void ShowShortcutDialog(int price, Player player, IShortcutField field)
     {
+        shortcutInfo.text = shortcutTemplate.text.Replace("{{price}}", price.ToString());
+        
         mainPanel.SetActive(false);
         shortcutDialog.SetActive(true);
         
