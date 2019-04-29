@@ -56,6 +56,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: again
+    second: {fileID: 2100000, guid: 63601a803a9844164869c6c1017dfb0e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: boat
     second: {fileID: 2100000, guid: ede744ed11e724285b3817f0792f680d, type: 2}
   - first:
