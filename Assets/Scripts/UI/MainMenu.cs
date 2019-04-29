@@ -18,6 +18,18 @@ namespace UI
         [SerializeField]
         private Slider playerSlider;
 
+        [SerializeField]
+        private GameObject menu;
+        
+        [SerializeField]
+        private GameObject introduction;
+
+        public void ShowIntroduction()
+        {
+            menu.SetActive(false);
+            introduction.SetActive(true);
+        }
+        
         private void Start()
         {
             followingCamera.SetTarget(rotationTarget);
