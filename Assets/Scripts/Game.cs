@@ -10,11 +10,9 @@ using Random = UnityEngine.Random;
 
 public class Game : MonoBehaviour
 {
-    [SerializeField]
-    private Field startField;
+    [SerializeField] private Field startField;
 
-    [SerializeField]
-    private Transform camera; 
+    [SerializeField] private Transform camera;
 
     public static Game Instance { private set; get; }
 
@@ -28,99 +26,73 @@ public class Game : MonoBehaviour
     private bool _inProgress;
 
     private GameObject _dice;
+    private GameObject _dice2;
 
-    [SerializeField]
-    private GameObject mainPanel;
+    private int _diceValue1;
+    private int _diceValue2;
 
-        [SerializeField]
-    private Text playerIntroduction;
-    
-    [SerializeField]
-    private Text remainingFields;
-    
-    [SerializeField]
-    private Text winInfo;
-    
-    [SerializeField]
-    private Text playerIntroductionTemplate;
+    [SerializeField] private GameObject mainPanel;
 
-    [SerializeField]
-    private FollowingCamera followingCamera;
+    [SerializeField] private Text playerIntroduction;
 
-    [SerializeField]
-    private Transform[] fireworkSpawner;
+    [SerializeField] private Text remainingFields;
 
-    [SerializeField]
-    private GameObject pressSpace;
+    [SerializeField] private Text winInfo;
 
-    [SerializeField]
-    private Image[] heartImages;
+    [SerializeField] private Text playerIntroductionTemplate;
 
-    [SerializeField]
-    private Sprite emptyHeart;
-    
-    [SerializeField]
-    private Sprite halfHeart;
-    
-    [SerializeField]
-    private Sprite fullHeart;
+    [SerializeField] private FollowingCamera followingCamera;
 
-    [SerializeField]
-    private GameObject infoRestart;
+    [SerializeField] private Transform[] fireworkSpawner;
 
-    [SerializeField]
-    private GameObject infoTemplate;
-    
-    [SerializeField]
-    private GameObject playerList;
+    [SerializeField] private GameObject pressSpace;
+
+    [SerializeField] private Image[] heartImages;
+
+    [SerializeField] private Sprite emptyHeart;
+
+    [SerializeField] private Sprite halfHeart;
+
+    [SerializeField] private Sprite fullHeart;
+
+    [SerializeField] private GameObject infoRestart;
+
+    [SerializeField] private GameObject infoTemplate;
+
+    [SerializeField] private GameObject playerList;
 
     [FormerlySerializedAs("_zoomPanel")] [SerializeField]
     private GameObject zoomPanel;
 
-    [SerializeField]
-    private GameObject arrowInfo;
+    [SerializeField] private GameObject arrowInfo;
 
-    [SerializeField]
-    private GameObject walkInfo;
+    [SerializeField] private GameObject walkInfo;
 
-    [SerializeField]
-    private Text walkInfoText;
-    
-    [SerializeField]
-    private Text walkInfoTemplate;
+    [SerializeField] private Text walkInfoText;
 
-    [SerializeField]
-    private GameObject shortcutDialog;
-    
-    [SerializeField]
-    private GameObject shortcutButtons;
+    [SerializeField] private Text walkInfoTemplate;
 
-    [SerializeField]
-    private Text shortcutInfo;
-    
-    [SerializeField]
-    private Text shortcutTemplate;
+    [SerializeField] private GameObject shortcutDialog;
 
-    [SerializeField]
-    private AudioSource clicker;
-    
-    [SerializeField]
-    private AudioSource shortcutAudio;
-    
-    [SerializeField]
-    private AudioSource spikeAudio;
-    
-    [SerializeField]
-    private AudioSource jumpAudio;
-    
-    [SerializeField]
-    private AudioSource walkAudio;
+    [SerializeField] private GameObject shortcutButtons;
 
-    [SerializeField]
-    private GameObject pause;
-    
-    [SerializeField]
-    private AudioSource hospitalAudio;
+    [SerializeField] private Text shortcutInfo;
+
+    [SerializeField] private Text shortcutTemplate;
+
+    [SerializeField] private AudioSource clicker;
+
+    [SerializeField] private AudioSource shortcutAudio;
+
+    [SerializeField] private AudioSource spikeAudio;
+
+    [SerializeField] private AudioSource jumpAudio;
+
+    [SerializeField] private AudioSource walkAudio;
+
+    [SerializeField] private GameObject pause;
+
+    [SerializeField] private AudioSource hospitalAudio;
 
     private bool _paused;
 
@@ -141,10 +113,10 @@ public class Game : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        
+
         var names = NameEngine.GetNames(4);
         var amount = PlayerHolder.GetInstance().GetPlayerAmount();
-        _players.AddRange(new []
+        _players.AddRange(new[]
         {
             SpawnPlayer(names[0], 1),
             SpawnPlayer(names[1], 2, amount < 2),
@@ -157,7 +129,7 @@ public class Game : MonoBehaviour
         _players[1].transform.position = position + startField.GetOffset(2);
         _players[2].transform.position = position + startField.GetOffset(3);
         _players[3].transform.position = position + startField.GetOffset(4);
-        
+
         RenderInfoPanel();
 
         StartTurn();
@@ -169,7 +141,7 @@ public class Game : MonoBehaviour
         {
             Destroy(playerList.transform.GetChild(i).gameObject);
         }
-        
+
         foreach (var player in _players)
         {
             AddPlayerToInfoPanel(player);
@@ -180,22 +152,22 @@ public class Game : MonoBehaviour
     {
         var instance = Instantiate(infoTemplate, playerList.transform);
         instance.transform.Find("Color").GetComponent<Image>().color = _colors[player.GetId() - 1];
-        instance.transform.Find("Name").GetComponent<Text>().text = 
+        instance.transform.Find("Name").GetComponent<Text>().text =
             instance.transform.Find("Name").GetComponent<Text>().text
-            .Replace("{{prefix}}", player.IsBot() ? "Bot" : "Player")
-            .Replace("{{id}}", player.GetPublicId().ToString());
+                .Replace("{{prefix}}", player.IsBot() ? "Bot" : "Player")
+                .Replace("{{id}}", player.GetPublicId().ToString());
 
         if (_players[_activePlayer] == player)
         {
             instance.GetComponent<Image>().enabled = true;
         }
-        
+
         // TODO: Health
         instance.SetActive(true);
 
         var images = instance.transform.Find("HealthBar").GetComponentsInChildren<Image>();
         var health = player.GetHealth();
-        
+
         images[0].sprite =
             health <= 0
                 ? emptyHeart
@@ -237,16 +209,16 @@ public class Game : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             _paused = !_paused;
-            
+
             pause.SetActive(_paused);
             Time.timeScale = _paused ? 0f : 1f;
         }
-        
+
         if (infoRestart.activeSelf && Input.GetKeyDown(KeyCode.Return))
         {
             SceneManager.LoadScene("Game");
         }
-        
+
         if (_won)
         {
             return;
@@ -263,19 +235,20 @@ public class Game : MonoBehaviour
             _moving = false;
             _inProgress = false;
             _diceFinished = false;
-            
+
             Destroy(_dice);
+            if (_dice2) Destroy(_dice2);
 
             _activePlayer++;
             if (_activePlayer >= _players.Count)
             {
                 _activePlayer = 0;
             }
-            
+
             StartTurn();
 
             _startTurnAfterWait = false;
-            
+
             return;
         }
 
@@ -283,7 +256,7 @@ public class Game : MonoBehaviour
         {
             return;
         }
-        
+
         var player = _players[_activePlayer];
         if (!_inProgress)
         {
@@ -291,7 +264,7 @@ public class Game : MonoBehaviour
             {
                 _botTimer -= Time.deltaTime;
             }
-            
+
             if (Input.GetKeyDown(KeyCode.Space) || (player.IsBot() && _botTimer <= 0f))
             {
                 clicker.Play();
@@ -313,7 +286,7 @@ public class Game : MonoBehaviour
         }
 
         _moving = true;
-        
+
         player.SetField(player.GetField().GetNext());
         player.RegisterMovementFinishedCallback(() => { HandleFinishedMovement(player); });
     }
@@ -329,7 +302,7 @@ public class Game : MonoBehaviour
         }
 
         _remaining--;
-        
+
         remainingFields.text = _remaining.ToString();
         if (_remaining <= 0)
         {
@@ -339,24 +312,25 @@ public class Game : MonoBehaviour
             {
                 return;
             }
-            
+
             _moving = false;
             _inProgress = false;
             _diceFinished = false;
-            
+
             Destroy(_dice);
+            if (_dice2) Destroy(_dice2);
 
             _activePlayer++;
             if (_activePlayer >= _players.Count)
             {
                 _activePlayer = 0;
             }
-            
+
             StartTurn();
 
             return;
         }
-        
+
         player.RegisterMovementFinishedCallback(() => { HandleFinishedMovement(player); });
         player.SetField(player.GetField().GetNext());
     }
@@ -364,34 +338,80 @@ public class Game : MonoBehaviour
     private void StartNewTurn()
     {
         _inProgress = true;
-        
+        _diceValue1 = 0;
+        _diceValue2 = 0;
+
+        var player = _players[_activePlayer];
+
         _dice = Instantiate(Resources.Load<GameObject>("Dice"));
         _dice.transform.position = camera.transform.position - new Vector3(2f, 3f, 4f);
         _dice.GetComponentsInChildren<MeshRenderer>().ToList().ForEach(mesh =>
+        {
+            mesh.material.color = _colors[_players[_activePlayer].GetPublicId() - 1];
+        });
+
+        if (player.GetDoubleDice() > 0)
+        {
+            player.DoubleDiceUsed();
+            
+            _dice2 = Instantiate(Resources.Load<GameObject>("Dice"));
+            _dice2.transform.position = camera.transform.position - new Vector3(3f, 3f, 4f);
+            _dice2.GetComponentsInChildren<MeshRenderer>().ToList().ForEach(mesh =>
             {
                 mesh.material.color = _colors[_players[_activePlayer].GetPublicId() - 1];
             });
-        
-        _dice.GetComponent<Dice.Dice>().RegisterCallback(face =>
+
+            _dice.GetComponent<Dice.Dice>().RegisterCallback(face =>
+            {
+                _diceValue1 = face;
+
+                if (_diceValue1 == 0 || _diceValue2 == 0)
+                {
+                    return;
+                }
+                
+                _diceFinished = true;
+                _remaining = _diceValue1 + _diceValue2;
+                remainingFields.text = _remaining.ToString();
+            });
+
+            _dice2.GetComponent<Dice.Dice>().RegisterCallback(face =>
+            {
+                _diceValue2 = face;
+                
+                if (_diceValue1 == 0 || _diceValue2 == 0)
+                {
+                    return;
+                }
+                
+                _diceFinished = true;
+                _remaining = _diceValue1 + _diceValue2;
+                remainingFields.text = _remaining.ToString();
+            });
+        }
+        else
         {
-            _diceFinished = true;
-            _remaining = face;
-            remainingFields.text = face.ToString();
-        });
+            _dice.GetComponent<Dice.Dice>().RegisterCallback(face =>
+            {
+                _diceFinished = true;
+                _remaining = face;
+                remainingFields.text = face.ToString();
+            });
+        }
     }
-    
+
     private void StartTurn()
     {
         _botTimer = Random.Range(1f, 2f);
-        
+
         var player = _players[_activePlayer];
         var playerName = player.GetName();
         var id = player.GetPublicId();
-        
+
         followingCamera.SetTarget(player.transform);
 
         walkInfo.gameObject.SetActive(false);
-        
+
         playerIntroduction.text = playerIntroductionTemplate.text
             .Replace("{{prefix}}", player.IsBot() ? "Bot" : "Player")
             .Replace("{{id}}", id.ToString())
@@ -405,7 +425,7 @@ public class Game : MonoBehaviour
         {
             return;
         }
-        
+
         pressSpace.SetActive(true);
     }
 
@@ -446,7 +466,7 @@ public class Game : MonoBehaviour
                 : health == 9
                     ? halfHeart
                     : fullHeart;
-        
+
         RenderInfoPanel();
     }
 
@@ -456,17 +476,17 @@ public class Game : MonoBehaviour
     {
         var prefab = Resources.Load<GameObject>("Player");
         var instance = Instantiate(prefab);
-        
+
         instance.transform.position = startField.transform.position + new Vector3(0, .5f, 0);
         instance.GetComponentInChildren<MeshRenderer>().material.color = _colors[id - 1];
-        
+
         var playerComp = instance.GetComponent<Player>();
         if (bot)
         {
             Destroy(playerComp);
             playerComp = instance.AddComponent<Bot>();
         }
-        
+
         playerComp.SetPlayerNameAndId(newName, id);
         playerComp.SetField(startField);
 
@@ -476,9 +496,9 @@ public class Game : MonoBehaviour
     public void Win(Player player)
     {
         _won = true;
-        
+
         _players.ForEach(p => { p.Stop(); });
-        
+
         playerIntroduction.gameObject.SetActive(false);
         remainingFields.gameObject.SetActive(false);
         zoomPanel.SetActive(false);
@@ -488,7 +508,7 @@ public class Game : MonoBehaviour
         winInfo.text = winInfo.text
             .Replace("{{prefix}}", player.IsBot() ? "Bot" : "Player")
             .Replace("{{id}}", player.GetPublicId().ToString());
-        
+
         winInfo.gameObject.SetActive(true);
 
         followingCamera.SetTarget(player.transform);
@@ -500,7 +520,7 @@ public class Game : MonoBehaviour
             var instance = Instantiate(firework);
             instance.transform.position = spawner.position;
         }
-        
+
         pressSpace.SetActive(false);
         infoRestart.SetActive(true);
     }
@@ -512,7 +532,7 @@ public class Game : MonoBehaviour
 
         for (var i = 1; i < _players.Count; i++)
         {
-            _players[i-1].RefreshPlayerId(i);
+            _players[i - 1].RefreshPlayerId(i);
         }
 
         if (_players.Count == 1)
@@ -520,12 +540,12 @@ public class Game : MonoBehaviour
             Win(_players.First());
             return;
         }
-        
+
         _remaining = 0;
         _activePlayer--;
-        
+
         Wait(.1f, true);
-        
+
         if (_players.All(p => p.IsBot()))
         {
             infoRestart.SetActive(true);
@@ -542,7 +562,7 @@ public class Game : MonoBehaviour
     {
         _moving = false;
         _remaining += remaining;
-        
+
         remainingFields.text = _remaining.ToString();
     }
 
@@ -562,17 +582,17 @@ public class Game : MonoBehaviour
         walkInfoText.text = walkInfoTemplate.text
             .Replace("{{num}}", fields.ToString())
             .Replace("{{direction}}", direction);
-        
+
         walkInfo.gameObject.SetActive(true);
     }
 
     public void ShowShortcutDialog(int price, Player player, IShortcutField field)
     {
         shortcutInfo.text = shortcutTemplate.text.Replace("{{price}}", price.ToString());
-        
+
         mainPanel.SetActive(false);
         shortcutDialog.SetActive(true);
-        
+
         shortcutDialog.GetComponent<ShortcutDialog>().Init(field, player);
         shortcutButtons.SetActive(!player.IsBot());
     }
@@ -588,13 +608,12 @@ public class Game : MonoBehaviour
     public AudioSource GetClicker() => clicker;
 
     public AudioSource GetShortcutAudio() => shortcutAudio;
-    
+
     public AudioSource GetSpikeAudio() => spikeAudio;
-    
+
     public AudioSource GetJumpAudio() => jumpAudio;
 
     public AudioSource GetWalkAudio() => walkAudio;
-    
+
     public AudioSource GetHospitalAudio() => hospitalAudio;
-    
 }

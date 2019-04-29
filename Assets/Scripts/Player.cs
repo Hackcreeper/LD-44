@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     private Action _movementFinishedCallback;
 
     private int _health = 10;
+    private int _doubleDice;
 
     [SerializeField]
     private AudioClip dieClip;
@@ -190,6 +191,13 @@ public class Player : MonoBehaviour
         Game.Instance.RenderHearts();
 
         SpawnBubble(points);
+    }
+
+    public int GetDoubleDice() => _doubleDice;
+
+    public void DoubleDiceUsed()
+    {
+        _doubleDice--;
     }
 }
 
