@@ -40,6 +40,12 @@ public class Player : MonoBehaviour
         {
             return;
         }
+
+        if (_moveStep == MoveStep.PlaySound)
+        {
+            Game.Instance.GetWalkAudio().Play();
+            _moveStep = MoveStep.Finish;
+        }
         
         if (_moveStep == MoveStep.Finish)
         {
@@ -66,7 +72,7 @@ public class Player : MonoBehaviour
 
         if (_moveStep == MoveStep.Lerp2)
         {
-            LerpTo(q1, pB, MoveStep.Finish);
+            LerpTo(q1, pB, MoveStep.PlaySound);
         }
 
         if (_moveStep == MoveStep.RePosition)
@@ -193,5 +199,6 @@ internal enum MoveStep
     Lerp2,
     Finish,
     RePosition,
-    Stopped
+    Stopped,
+    PlaySound
 }

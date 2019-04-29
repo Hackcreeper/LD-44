@@ -112,6 +112,14 @@ public class Game : MonoBehaviour
     
     [SerializeField]
     private AudioSource jumpAudio;
+    
+    [SerializeField]
+    private AudioSource walkAudio;
+
+    [SerializeField]
+    private GameObject pause;
+
+    private bool _paused;
 
     private float _botTimer = 1f;
     private float _waitTimer = 0f;
@@ -223,6 +231,14 @@ public class Game : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            _paused = !_paused;
+            
+            pause.SetActive(_paused);
+            Time.timeScale = _paused ? 0f : 1f;
+        }
+        
         if (infoRestart.activeSelf && Input.GetKeyDown(KeyCode.Return))
         {
             SceneManager.LoadScene("Game");
@@ -573,4 +589,6 @@ public class Game : MonoBehaviour
     public AudioSource GetSpikeAudio() => spikeAudio;
     
     public AudioSource GetJumpAudio() => jumpAudio;
+
+    public AudioSource GetWalkAudio() => walkAudio;
 }
