@@ -96,6 +96,8 @@ public class Game : MonoBehaviour
     [SerializeField] private AudioSource hospitalAudio;
     
     [SerializeField] private GameObject skipInfo;
+    
+    [SerializeField] private GameObject rollAgainInfo;
 
     private bool _paused;
     private bool _trapPlacementMode;
@@ -235,6 +237,7 @@ public class Game : MonoBehaviour
         }
         
         skipInfo.SetActive(false);
+        rollAgainInfo.SetActive(false);
 
         if (_startTurnAfterWait)
         {
@@ -659,4 +662,14 @@ public class Game : MonoBehaviour
     }
 
     public List<Player> GetPlayers() => _players;
+
+    public void ReRunCurrentPlayer()
+    {
+        _activePlayer--;
+    }
+
+    public void ShowRollAgainInfo()
+    {
+        rollAgainInfo.SetActive(true);
+    }
 }
