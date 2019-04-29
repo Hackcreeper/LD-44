@@ -101,8 +101,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: heart
+    second: {fileID: 2100000, guid: c0125a46caaf541598eeed348da08b75, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: hospital
     second: {fileID: 2100000, guid: d77e7855773d74534afebe5c3b3fa38b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: insurance
+    second: {fileID: 2100000, guid: 6270b0ac352bf4fe0bb873dabf789b74, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -136,6 +146,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: stop
+    second: {fileID: 2100000, guid: afa5a907961ce431c8dd7627e0d58c9a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: tower
     second: {fileID: 2100000, guid: accddf6edc2b84ae0af8c3f400b7cd43, type: 2}
   - first:
@@ -143,6 +158,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: winHouse
     second: {fileID: 2100000, guid: ef5c15c812ef24fc89a88f64fb562483, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: window
+    second: {fileID: 2100000, guid: de27cfd8143534a30952e9185cccc880, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

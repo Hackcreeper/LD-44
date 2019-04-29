@@ -19,8 +19,6 @@ namespace Fields
 
         public void Accepted(Player player)
         {
-            Game.Instance.GetShortcutAudio().Play();
-            
             target.ClearArrows();
             
             Game.Instance.HideShortcutDialog();

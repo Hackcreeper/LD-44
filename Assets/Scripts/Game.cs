@@ -161,7 +161,7 @@ public class Game : MonoBehaviour
     private void AddPlayerToInfoPanel(Player player)
     {
         var instance = Instantiate(infoTemplate, playerList.transform);
-        instance.transform.Find("Color").GetComponent<Image>().color = _colors[player.GetId() - 1];
+        instance.transform.Find("Color").GetComponent<Image>().color = _colors[player.GetPublicId() - 1];
         instance.transform.Find("Name").GetComponent<Text>().text =
             instance.transform.Find("Name").GetComponent<Text>().text
                 .Replace("{{prefix}}", player.IsBot() ? "Bot" : "Player")
