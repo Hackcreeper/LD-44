@@ -6235,6 +6235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tunnelEntryPosition: {fileID: 1219265931}
+  tunnelExitPosition: {fileID: 1684308759}
 --- !u!1 &1627016477
 GameObject:
   m_ObjectHideFlags: 0
