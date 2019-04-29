@@ -181,7 +181,12 @@ public class Player : MonoBehaviour
         {
             Stop();
             Game.Instance.Kill(this);
-            audioSource.PlayOneShot(dieClip);
+
+            if (audioSource && dieClip)
+            {
+                audioSource.PlayOneShot(dieClip);
+            }
+
             gameObject.AddComponent<Rigidbody>();
         }
     }
