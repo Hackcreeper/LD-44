@@ -641,4 +641,6 @@ public class Game : MonoBehaviour
     {
         _trapPlacementMode = trap;
     }
+
+    public List<Player> GetPlayers() => _players;
 }

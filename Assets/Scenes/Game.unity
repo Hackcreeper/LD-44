@@ -4124,6 +4124,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53f2b98cf6b4565bf84e12cf761de9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttons:
+  - {fileID: 968139483}
+  - {fileID: 1362387365}
+  - {fileID: 1965375741}
 --- !u!114 &1237032506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4792,7 +4796,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Shop
 
-    <size=22>You may buy upgrades here, but these will costs hearts!</size>'
+    <size=22>Here you may purchase upgrades in exchange for hearts!</size>'
 --- !u!222 &1367303783
 CanvasRenderer:
   m_ObjectHideFlags: 0

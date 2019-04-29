@@ -10,6 +10,7 @@ namespace Fields
             Game.Instance.Wait(float.MaxValue);
         }
         
-        protected override bool AllowTrapPlacement() => false;
+        public override bool AllowTrapPlacement() => false;
+
     }
 }

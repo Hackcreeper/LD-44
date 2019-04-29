@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 namespace Fields
 {
@@ -20,6 +21,9 @@ namespace Fields
 
         private GameObject _spikes;
         private Player _spikeOwner;
+
+        private bool _botPlacesSpikes;
+        private float _waitForPlacement = 0f;
 
         public int AddPlayer(Player player)
         {
@@ -147,7 +151,12 @@ namespace Fields
             {
                 return;
             }
-            
+
+            PlaceTrap();
+        }
+
+        private void PlaceTrap()
+        {
             var player = Game.Instance.GetActivePlayer();
             
             _spikes = Instantiate(Resources.Load<GameObject>("Spikes"), transform, true);
@@ -237,6 +246,33 @@ namespace Fields
             Arrows.Clear();
         }
 
-        protected virtual bool AllowTrapPlacement() => !_hasTrap;
+        public virtual bool AllowTrapPlacement() => !_hasTrap;
+
+        public void PlaceAsBot()
+        {
+            SpawnArrows();
+            
+            _botPlacesSpikes = true;
+            _waitForPlacement = UnityEngine.Random.Range(1f, 2.2f);
+        }
+
+        private void Update()
+        {
+            if (!_botPlacesSpikes)
+            {
+                return;
+            }
+
+            _waitForPlacement -= Time.deltaTime;
+            if (_waitForPlacement > 0f)
+            {
+                return;
+            }
+
+            _botPlacesSpikes = false;
+            _waitForPlacement = 0f;
+            
+            PlaceTrap();
+        }
     }
 }

@@ -39,8 +39,7 @@ namespace Fields
 
         public void Canceled(Player player)
         {
-            Arrows.ForEach(Destroy);
-            Arrows.Clear();
+            target.ClearArrows();
             
             Game.Instance.HideShortcutDialog();
             Game.Instance.GetCamera().ExitZoom();
@@ -52,6 +51,6 @@ namespace Fields
 
         public int GetPrice() => 6;
         
-        protected override bool AllowTrapPlacement() => false;
+        public override bool AllowTrapPlacement() => false;
     }
 } 
