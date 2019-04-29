@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
     private int _health = 10;
     private int _doubleDice;
 
+    private bool _skipTurn;
+
     [SerializeField]
     private AudioClip dieClip;
 
@@ -203,6 +205,18 @@ public class Player : MonoBehaviour
     public void BoughtDoubleDice()
     {
         _doubleDice = 2;
+    }
+
+    public void SkipNextTurn()
+    {
+        _skipTurn = true;
+    }
+
+    public bool ShouldSkip() => _skipTurn;
+
+    public void Skipped()
+    {
+        _skipTurn = false;
     }
 }
 

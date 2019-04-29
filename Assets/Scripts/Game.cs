@@ -72,7 +72,7 @@ public class Game : MonoBehaviour
     [SerializeField] private Text walkInfoTemplate;
 
     [SerializeField] private GameObject shortcutDialog;
-    
+
     [SerializeField] private GameObject shopDialog;
 
     [SerializeField] private GameObject shortcutButtons;
@@ -94,6 +94,8 @@ public class Game : MonoBehaviour
     [SerializeField] private GameObject pause;
 
     [SerializeField] private AudioSource hospitalAudio;
+    
+    [SerializeField] private GameObject skipInfo;
 
     private bool _paused;
     private bool _trapPlacementMode;
@@ -164,7 +166,6 @@ public class Game : MonoBehaviour
             instance.GetComponent<Image>().enabled = true;
         }
 
-        // TODO: Health
         instance.SetActive(true);
 
         var images = instance.transform.Find("HealthBar").GetComponentsInChildren<Image>();
@@ -231,6 +232,8 @@ public class Game : MonoBehaviour
             _waitTimer -= Time.deltaTime;
             return;
         }
+        
+        skipInfo.SetActive(false);
 
         if (_startTurnAfterWait)
         {
@@ -265,6 +268,16 @@ public class Game : MonoBehaviour
             if (player.IsBot())
             {
                 _botTimer -= Time.deltaTime;
+            }
+
+            if (player.ShouldSkip())
+            {
+                player.Skipped();
+                skipInfo.SetActive(true);
+                pressSpace.SetActive(false);
+                Wait(2f);
+                
+                return;
             }
 
             if (Input.GetKeyDown(KeyCode.Space) || (player.IsBot() && _botTimer <= 0f))
@@ -355,7 +368,7 @@ public class Game : MonoBehaviour
         if (player.GetDoubleDice() > 0)
         {
             player.DoubleDiceUsed();
-            
+
             _dice2 = Instantiate(Resources.Load<GameObject>("Dice"));
             _dice2.transform.position = camera.transform.position - new Vector3(3f, 3f, 4f);
             _dice2.GetComponentsInChildren<MeshRenderer>().ToList().ForEach(mesh =>
@@ -371,7 +384,7 @@ public class Game : MonoBehaviour
                 {
                     return;
                 }
-                
+
                 _diceFinished = true;
                 _remaining = _diceValue1 + _diceValue2;
                 remainingFields.text = _remaining.ToString();
@@ -380,12 +393,12 @@ public class Game : MonoBehaviour
             _dice2.GetComponent<Dice.Dice>().RegisterCallback(face =>
             {
                 _diceValue2 = face;
-                
+
                 if (_diceValue1 == 0 || _diceValue2 == 0)
                 {
                     return;
                 }
-                
+
                 _diceFinished = true;
                 _remaining = _diceValue1 + _diceValue2;
                 remainingFields.text = _remaining.ToString();
@@ -606,7 +619,7 @@ public class Game : MonoBehaviour
 
         shopDialog.GetComponent<Shop>().Init();
     }
-    
+
     public FollowingCamera GetCamera() => followingCamera;
 
     public void HideShortcutDialog()
@@ -632,7 +645,7 @@ public class Game : MonoBehaviour
     public AudioSource GetWalkAudio() => walkAudio;
 
     public AudioSource GetHospitalAudio() => hospitalAudio;
-    
+
     public Player GetActivePlayer() => _players[_activePlayer];
 
     public bool IsTrapPlacementMode() => _trapPlacementMode;

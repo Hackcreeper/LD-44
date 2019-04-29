@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Fields;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
