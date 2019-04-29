@@ -18,7 +18,8 @@ namespace Fields
             {
                 player.RegisterMovementFinishedCallback(() => { Game.Instance.HandleFinishedMovement(player); });
                 player.SetField(previousFields[random * -1 - 1]);
-                
+
+                Game.Instance.GetJumpAudio().Play();
                 Game.Instance.ShowWalkInfo(random * -1, "backwards");
             }
             else

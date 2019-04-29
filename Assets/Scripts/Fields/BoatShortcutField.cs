@@ -81,6 +81,8 @@ namespace Fields
 
         public void Accepted(Player player)
         {
+            Game.Instance.GetShortcutAudio().Play();
+            
             _arrows.ForEach(Destroy);
             _arrows.Clear();
             

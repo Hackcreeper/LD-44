@@ -68,6 +68,7 @@ public class FollowingCamera : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Z) && !_preventZoom)
         {
+            Game.Instance.GetClicker().Play();
             _zooming = !_zooming;
         }
 

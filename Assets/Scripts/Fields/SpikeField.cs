@@ -9,6 +9,8 @@ namespace Fields
         
         public override void OnStay(Player player)
         {
+            Game.Instance.GetSpikeAudio().Play();
+            
             animator.Play("Active");
             
             player.Hurt(2);

@@ -101,6 +101,18 @@ public class Game : MonoBehaviour
     [SerializeField]
     private Text shortcutTemplate;
 
+    [SerializeField]
+    private AudioSource clicker;
+    
+    [SerializeField]
+    private AudioSource shortcutAudio;
+    
+    [SerializeField]
+    private AudioSource spikeAudio;
+    
+    [SerializeField]
+    private AudioSource jumpAudio;
+
     private float _botTimer = 1f;
     private float _waitTimer = 0f;
 
@@ -263,6 +275,7 @@ public class Game : MonoBehaviour
             
             if (Input.GetKeyDown(KeyCode.Space) || (player.IsBot() && _botTimer <= 0f))
             {
+                clicker.Play();
                 pressSpace.SetActive(false);
                 StartNewTurn();
             }
@@ -552,4 +565,12 @@ public class Game : MonoBehaviour
         shortcutDialog.SetActive(false);
         mainPanel.SetActive(true);
     }
+
+    public AudioSource GetClicker() => clicker;
+
+    public AudioSource GetShortcutAudio() => shortcutAudio;
+    
+    public AudioSource GetSpikeAudio() => spikeAudio;
+    
+    public AudioSource GetJumpAudio() => jumpAudio;
 }
