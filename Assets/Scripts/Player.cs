@@ -22,6 +22,12 @@ public class Player : MonoBehaviour
 
     private int _health = 10;
 
+    [SerializeField]
+    private AudioClip dieClip;
+
+    [SerializeField]
+    private AudioSource audioSource;
+
     private void Start()
     {
         SetField(Game.Instance.GetStartField());
@@ -160,6 +166,7 @@ public class Player : MonoBehaviour
         {
             Stop();
             Game.Instance.Kill(this);
+            audioSource.PlayOneShot(dieClip);
             gameObject.AddComponent<Rigidbody>();
         }
     }

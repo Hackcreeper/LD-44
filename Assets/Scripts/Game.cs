@@ -101,6 +101,18 @@ public class Game : MonoBehaviour
     [SerializeField]
     private Text shortcutTemplate;
 
+    [SerializeField]
+    private AudioSource clicker;
+    
+    [SerializeField]
+    private AudioSource shortcutAudio;
+    
+    [SerializeField]
+    private AudioSource spikeAudio;
+    
+    [SerializeField]
+    private AudioSource jumpAudio;
+
     private float _botTimer = 1f;
     private float _waitTimer = 0f;
 
@@ -120,19 +132,20 @@ public class Game : MonoBehaviour
         Instance = this;
         
         var names = NameEngine.GetNames(4);
+        var amount = PlayerHolder.GetInstance().GetPlayerAmount();
         _players.AddRange(new []
         {
             SpawnPlayer(names[0], 1),
-            SpawnPlayer(names[1], 2, true),
-            SpawnPlayer(names[2], 3),
-//            SpawnPlayer(names[3], 4, true)
+            SpawnPlayer(names[1], 2, amount < 2),
+            SpawnPlayer(names[2], 3, amount < 3),
+            SpawnPlayer(names[3], 4, amount < 4)
         });
 
         var position = startField.transform.position;
         _players[0].transform.position = position + startField.GetOffset(1);
         _players[1].transform.position = position + startField.GetOffset(2);
         _players[2].transform.position = position + startField.GetOffset(3);
-//        _players[3].transform.position = position + startField.GetOffset(4);
+        _players[3].transform.position = position + startField.GetOffset(4);
         
         RenderInfoPanel();
 
@@ -262,6 +275,7 @@ public class Game : MonoBehaviour
             
             if (Input.GetKeyDown(KeyCode.Space) || (player.IsBot() && _botTimer <= 0f))
             {
+                clicker.Play();
                 pressSpace.SetActive(false);
                 StartNewTurn();
             }
@@ -551,4 +565,12 @@ public class Game : MonoBehaviour
         shortcutDialog.SetActive(false);
         mainPanel.SetActive(true);
     }
+
+    public AudioSource GetClicker() => clicker;
+
+    public AudioSource GetShortcutAudio() => shortcutAudio;
+    
+    public AudioSource GetSpikeAudio() => spikeAudio;
+    
+    public AudioSource GetJumpAudio() => jumpAudio;
 }

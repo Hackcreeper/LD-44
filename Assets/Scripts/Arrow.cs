@@ -9,6 +9,7 @@ public class Arrow : MonoBehaviour
 
     private void OnMouseDown()
     {
+        Game.Instance.GetClicker().Play();
         CrossingField.PathSelected(_target, _player);
     }
 
