@@ -96,6 +96,7 @@ public class Game : MonoBehaviour
     [SerializeField] private AudioSource hospitalAudio;
 
     private bool _paused;
+    private bool _trapPlacementMode;
 
     private float _botTimer = 1f;
     private float _waitTimer = 0f;
@@ -633,4 +634,11 @@ public class Game : MonoBehaviour
     public AudioSource GetHospitalAudio() => hospitalAudio;
     
     public Player GetActivePlayer() => _players[_activePlayer];
+
+    public bool IsTrapPlacementMode() => _trapPlacementMode;
+
+    public void SetTrapPlacementMode(bool trap)
+    {
+        _trapPlacementMode = trap;
+    }
 }

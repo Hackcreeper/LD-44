@@ -4670,8 +4670,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_MethodName: Yes
+      - m_Target: {fileID: 1237032505}
+        m_MethodName: BuyTrap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9228,7 +9228,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2060319002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 576346e394e34e2385718034c7cff5bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319232}
@@ -9314,7 +9314,7 @@ MonoBehaviour:
   previousFields:
   - {fileID: 2060319157}
   - {fileID: 2060319158}
-  - {fileID: 2060319159}
+  - {fileID: 0}
   - {fileID: 2060319160}
   backwards: 1
 --- !u!114 &2060319157
@@ -9349,13 +9349,13 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2060319011}
+  m_GameObject: {fileID: 2060319021}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 576346e394e34e2385718034c7cff5bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextField: {fileID: 2060319158}
+  nextField: {fileID: 2060319168}
 --- !u!114 &2060319160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9368,7 +9368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c2e3a5902746cabcfb35b72395f006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextField: {fileID: 2060319159}
+  nextField: {fileID: 2060319169}
   animator: {fileID: 1941461993}
 --- !u!114 &2060319161
 MonoBehaviour:
@@ -9483,13 +9483,13 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2060319021}
+  m_GameObject: {fileID: 2060319011}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 576346e394e34e2385718034c7cff5bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextField: {fileID: 2060319168}
+  nextField: {fileID: 2060319158}
 --- !u!114 &2060319170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9502,7 +9502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextField: {fileID: 2060319169}
+  nextField: {fileID: 2060319159}
 --- !u!114 &2060319171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9512,7 +9512,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2060319023}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 576346e394e34e2385718034c7cff5bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319170}
@@ -9913,7 +9913,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2060319052}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 576346e394e34e2385718034c7cff5bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319216}
@@ -10212,7 +10212,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2060319143}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 576346e394e34e2385718034c7cff5bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319290}
@@ -10325,8 +10325,8 @@ MonoBehaviour:
   previousFields:
   - {fileID: 2060319231}
   - {fileID: 2060319232}
-  - {fileID: 2060319150}
-  - {fileID: 2060319252}
+  - {fileID: 0}
+  - {fileID: 0}
   backwards: 1
 --- !u!114 &2060319231
 MonoBehaviour:
@@ -10364,7 +10364,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2060319086}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 576346e394e34e2385718034c7cff5bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319251}
@@ -10377,10 +10377,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2060319087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 576346e394e34e2385718034c7cff5bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextField: {fileID: 2060319252}
+  nextField: {fileID: 2060319243}
 --- !u!114 &2060319236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10474,6 +10474,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319241}
+--- !u!114 &2060319243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060319104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 576346e394e34e2385718034c7cff5bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextField: {fileID: 2060319150}
 --- !u!114 &2060319244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10587,19 +10600,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319250}
---- !u!114 &2060319252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2060319104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextField: {fileID: 2060319150}
 --- !u!114 &2060319253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11117,7 +11117,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2060319148}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 576346e394e34e2385718034c7cff5bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319297}

@@ -17,5 +17,7 @@ namespace Fields
             
             Game.Instance.Wait(1);
         }
+        
+        protected override bool AllowTrapPlacement() => false;
     }
 }
