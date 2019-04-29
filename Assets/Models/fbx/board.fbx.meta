@@ -146,6 +146,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: stop
+    second: {fileID: 2100000, guid: afa5a907961ce431c8dd7627e0d58c9a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: tower
     second: {fileID: 2100000, guid: accddf6edc2b84ae0af8c3f400b7cd43, type: 2}
   - first:
