@@ -118,6 +118,9 @@ public class Game : MonoBehaviour
 
     [SerializeField]
     private GameObject pause;
+    
+    [SerializeField]
+    private AudioSource hospitalAudio;
 
     private bool _paused;
 
@@ -591,4 +594,7 @@ public class Game : MonoBehaviour
     public AudioSource GetJumpAudio() => jumpAudio;
 
     public AudioSource GetWalkAudio() => walkAudio;
+    
+    public AudioSource GetHospitalAudio() => hospitalAudio;
+    
 }
