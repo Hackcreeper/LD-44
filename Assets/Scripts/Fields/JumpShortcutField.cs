@@ -88,6 +88,12 @@ namespace Fields
             Game.Instance.GetCamera().ExitZoom();
             
             player.Hurt(GetPrice());
+            if (player.GetHealth() <= 0)
+            {
+                Game.Instance.Wait(.1f, true);
+                return;
+            }
+            
             TowerAnimation.Instance.StartAnimation(player, target);
         }
 
