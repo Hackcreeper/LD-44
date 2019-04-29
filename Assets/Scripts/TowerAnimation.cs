@@ -65,7 +65,7 @@ public class TowerAnimation : MonoBehaviour
             return;
         }
 
-        Debug.Log("Finish!");
+        Game.Instance.GetWalkAudio().Play();
         Game.Instance.StopWaiting();
             
         _player.RegisterMovementFinishedCallback(() => { Game.Instance.HandleFinishedMovement(_player); });

@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     private Action _movementFinishedCallback;
 
     private int _health = 10;
+    private int _doubleDice;
 
     [SerializeField]
     private AudioClip dieClip;
@@ -39,6 +40,12 @@ public class Player : MonoBehaviour
         if (_moveStep == MoveStep.Stopped)
         {
             return;
+        }
+
+        if (_moveStep == MoveStep.PlaySound)
+        {
+            Game.Instance.GetWalkAudio().Play();
+            _moveStep = MoveStep.Finish;
         }
         
         if (_moveStep == MoveStep.Finish)
@@ -66,7 +73,7 @@ public class Player : MonoBehaviour
 
         if (_moveStep == MoveStep.Lerp2)
         {
-            LerpTo(q1, pB, MoveStep.Finish);
+            LerpTo(q1, pB, MoveStep.PlaySound);
         }
 
         if (_moveStep == MoveStep.RePosition)
@@ -185,6 +192,18 @@ public class Player : MonoBehaviour
 
         SpawnBubble(points);
     }
+
+    public int GetDoubleDice() => _doubleDice;
+
+    public void DoubleDiceUsed()
+    {
+        _doubleDice--;
+    }
+
+    public void BoughtDoubleDice()
+    {
+        _doubleDice = 2;
+    }
 }
 
 internal enum MoveStep
@@ -193,5 +212,6 @@ internal enum MoveStep
     Lerp2,
     Finish,
     RePosition,
-    Stopped
+    Stopped,
+    PlaySound
 }

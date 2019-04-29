@@ -1,4 +1,3 @@
-using System;
 using Fields;
 using UnityEngine;
 
@@ -95,6 +94,7 @@ public class BoatAnimation : MonoBehaviour
         if (_animationStep == AnimationStep.DriveBoat)
         {
             _waitingForAnimation = true;
+            Game.Instance.GetWalkAudio().Play();
             boatAnimator.Play("BoatStart");
         }
     }
