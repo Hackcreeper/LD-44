@@ -11405,6 +11405,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319231}
   animator: {fileID: 2060319306}
+--- !u!114 &2060319233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060319144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6224758dab946139b2b6f0021117e85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextField: {fileID: 2060319222}
 --- !u!114 &2060319234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12132,19 +12145,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextField: {fileID: 2060319289}
---- !u!114 &2060319292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2060319144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextField: {fileID: 2060319222}
 --- !u!114 &2060319293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12157,7 +12157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18716babd909d441c9c804232a55f7d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextField: {fileID: 2060319292}
+  nextField: {fileID: 2060319233}
 --- !u!114 &2060319296
 MonoBehaviour:
   m_ObjectHideFlags: 0
