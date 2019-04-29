@@ -2065,7 +2065,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: GAME NAME 123
+  m_Text: G A M E   O F   F I E L D S
 --- !u!222 &1766103031
 CanvasRenderer:
   m_ObjectHideFlags: 0
