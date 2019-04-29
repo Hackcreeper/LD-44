@@ -6,6 +6,11 @@ public class PlayerHolder : MonoBehaviour
 
     private int _playerAmount;
     
+    [SerializeField] private AudioClip defaultMusic;
+    [SerializeField] private AudioClip winMusic;
+
+    [SerializeField] private AudioSource audioSource;
+    
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -31,5 +36,29 @@ public class PlayerHolder : MonoBehaviour
         }
 
         return _instance;
+    }
+
+    public void ToggleToWin()
+    {
+        if (!audioSource || !winMusic)
+        {
+            return;
+        }
+        
+        audioSource.clip = winMusic;
+        audioSource.volume = 0.025f;
+        audioSource.Play();
+    }
+
+    public void ToggleToDefault()
+    {
+        if (!audioSource || !defaultMusic)
+        {
+            return;
+        }
+        
+        audioSource.clip = defaultMusic;
+        audioSource.volume = 1f;
+        audioSource.Play();
     }
 }

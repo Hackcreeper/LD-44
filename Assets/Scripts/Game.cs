@@ -219,6 +219,7 @@ public class Game : MonoBehaviour
 
         if (infoRestart.activeSelf && Input.GetKeyDown(KeyCode.Return))
         {
+            PlayerHolder.GetInstance().ToggleToDefault();
             SceneManager.LoadScene("Game");
         }
 
@@ -510,6 +511,8 @@ public class Game : MonoBehaviour
 
     public void Win(Player player)
     {
+        PlayerHolder.GetInstance().ToggleToWin();
+        
         _won = true;
 
         _players.ForEach(p => { p.Stop(); });
