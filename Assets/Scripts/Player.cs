@@ -199,6 +199,11 @@ public class Player : MonoBehaviour
     {
         _doubleDice--;
     }
+
+    public void BoughtDoubleDice()
+    {
+        _doubleDice = 2;
+    }
 }
 
 internal enum MoveStep

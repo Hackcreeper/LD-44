@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fields;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -73,6 +72,8 @@ public class Game : MonoBehaviour
     [SerializeField] private Text walkInfoTemplate;
 
     [SerializeField] private GameObject shortcutDialog;
+    
+    [SerializeField] private GameObject shopDialog;
 
     [SerializeField] private GameObject shortcutButtons;
 
@@ -597,11 +598,25 @@ public class Game : MonoBehaviour
         shortcutButtons.SetActive(!player.IsBot());
     }
 
+    public void ShowShopDialog()
+    {
+        mainPanel.SetActive(false);
+        shopDialog.SetActive(true);
+
+        shopDialog.GetComponent<Shop>().Init();
+    }
+    
     public FollowingCamera GetCamera() => followingCamera;
 
     public void HideShortcutDialog()
     {
         shortcutDialog.SetActive(false);
+        mainPanel.SetActive(true);
+    }
+
+    public void HideShopDialog()
+    {
+        shopDialog.SetActive(false);
         mainPanel.SetActive(true);
     }
 
@@ -616,4 +631,6 @@ public class Game : MonoBehaviour
     public AudioSource GetWalkAudio() => walkAudio;
 
     public AudioSource GetHospitalAudio() => hospitalAudio;
+    
+    public Player GetActivePlayer() => _players[_activePlayer];
 }
