@@ -5,12 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public const float LerpingModifier = 3f;
-    
+
     private Vector3? _lastPosition;
     private Field _currentField;
 
     private MoveStep _moveStep = MoveStep.Lerp1;
-    
+
     private float _moveTimer;
     public int _fieldId;
 
@@ -25,11 +25,11 @@ public class Player : MonoBehaviour
 
     private bool _skipTurn;
 
-    [SerializeField]
-    private AudioClip dieClip;
+    [SerializeField] private AudioClip dieClip;
 
-    [SerializeField]
-    private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource;
+
+    private bool _hasLifeInsurance;
 
     private void Start()
     {
@@ -49,23 +49,23 @@ public class Player : MonoBehaviour
             Game.Instance.GetWalkAudio().Play();
             _moveStep = MoveStep.Finish;
         }
-        
+
         if (_moveStep == MoveStep.Finish)
         {
             _movementFinishedCallback?.Invoke();
-            
+
             return;
         }
 
         Debug.Assert(_lastPosition != null, nameof(_lastPosition) + " != null");
-        
+
         var pA = _lastPosition.Value;
         var pB = _currentField.transform.position + _currentField.GetOffset(_fieldId);
         var d = Vector3.Distance(pA, pB);
         var m = (pA + pB) / 2;
         var h = d * .3f;
         var q1 = m + new Vector3(0, h, 0);
-        
+
         if (_moveStep == MoveStep.Lerp1)
         {
             LerpTo(pA, q1, MoveStep.Lerp2);
@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
             _currentField.RemovePlayer(this);
             _lastPosition = transform.position;
         }
-        
+
         _currentField = field;
         _moveStep = MoveStep.Lerp1;
         _moveTimer = 0;
@@ -116,7 +116,7 @@ public class Player : MonoBehaviour
         _fieldId = id;
 
         if (_moveStep != MoveStep.Finish) return;
-        
+
         _lastPosition = transform.position;
         _moveStep = MoveStep.RePosition;
     }
@@ -163,6 +163,12 @@ public class Player : MonoBehaviour
 
     public void Hurt(int damage)
     {
+        if (_hasLifeInsurance)
+        {
+            damage /= 2;
+            _hasLifeInsurance = false;
+        }
+
         _health -= damage;
         Game.Instance.RenderHearts();
 
@@ -217,6 +223,11 @@ public class Player : MonoBehaviour
     public void Skipped()
     {
         _skipTurn = false;
+    }
+
+    public void GainLifeInsurance()
+    {
+        _hasLifeInsurance = true;
     }
 }
 

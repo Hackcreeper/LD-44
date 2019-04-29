@@ -73,9 +73,13 @@ public class Game : MonoBehaviour
 
     [SerializeField] private GameObject shortcutDialog;
 
+    [SerializeField] private GameObject lifeInsuranceDialog;
+
     [SerializeField] private GameObject shopDialog;
 
     [SerializeField] private GameObject shortcutButtons;
+
+    [SerializeField] private GameObject lifeInsuranceButtons;
 
     [SerializeField] private Text shortcutInfo;
 
@@ -94,9 +98,9 @@ public class Game : MonoBehaviour
     [SerializeField] private GameObject pause;
 
     [SerializeField] private AudioSource hospitalAudio;
-    
+
     [SerializeField] private GameObject skipInfo;
-    
+
     [SerializeField] private GameObject rollAgainInfo;
 
     private bool _paused;
@@ -235,7 +239,7 @@ public class Game : MonoBehaviour
             _waitTimer -= Time.deltaTime;
             return;
         }
-        
+
         skipInfo.SetActive(false);
         rollAgainInfo.SetActive(false);
 
@@ -280,7 +284,7 @@ public class Game : MonoBehaviour
                 skipInfo.SetActive(true);
                 pressSpace.SetActive(false);
                 Wait(2f);
-                
+
                 return;
             }
 
@@ -515,7 +519,7 @@ public class Game : MonoBehaviour
     public void Win(Player player)
     {
         PlayerHolder.GetInstance().ToggleToWin();
-        
+
         _won = true;
 
         _players.ForEach(p => { p.Stop(); });
@@ -618,6 +622,15 @@ public class Game : MonoBehaviour
         shortcutButtons.SetActive(!player.IsBot());
     }
 
+    public void ShowLifeInsuranceDialog()
+    {
+        mainPanel.SetActive(false);
+        lifeInsuranceDialog.SetActive(true);
+
+        lifeInsuranceDialog.GetComponent<LifeInsuranceDialog>().Init();
+        lifeInsuranceButtons.SetActive(!GetActivePlayer().IsBot());
+    }
+
     public void ShowShopDialog()
     {
         mainPanel.SetActive(false);
@@ -671,5 +684,11 @@ public class Game : MonoBehaviour
     public void ShowRollAgainInfo()
     {
         rollAgainInfo.SetActive(true);
+    }
+
+    public void HideLifeInsuranceDialog()
+    {
+        lifeInsuranceDialog.SetActive(false);
+        mainPanel.SetActive(true);
     }
 }

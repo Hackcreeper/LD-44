@@ -15,8 +15,7 @@ namespace Dice
         private bool _grounded;
         private bool _finished;
 
-        [SerializeField]
-        private DiceFace[] _faces;
+        [SerializeField] private DiceFace[] _faces;
 
         private Action<int> _whenFinished;
 
@@ -34,11 +33,11 @@ namespace Dice
             {
                 return;
             }
-            
+
             if (_grounded)
             {
                 _timer -= Time.deltaTime;
-                
+
                 if (_timer > 0f || _rigidbody.angularVelocity.magnitude > 0f)
                 {
                     return;
@@ -46,10 +45,10 @@ namespace Dice
 
                 _finished = true;
                 _whenFinished?.Invoke(GetHighestFace());
-                
+
                 return;
             }
-            
+
             _progress += SmoothModifier * Time.deltaTime;
             _rigidbody.rotation = Quaternion.Slerp(Quaternion.identity, _targetRotation, _progress);
 
@@ -65,11 +64,9 @@ namespace Dice
 
         private int GetHighestFace()
         {
-            return 2;
-            
             var highest = float.MinValue;
             var highestFace = 1;
-            
+
             foreach (var face in _faces)
             {
                 var y = face.transform.position.y;
@@ -79,7 +76,7 @@ namespace Dice
                     highestFace = face.GetEyes();
                 }
             }
-            
+
             return highestFace;
         }
 
