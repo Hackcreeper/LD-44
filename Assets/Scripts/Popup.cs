@@ -32,7 +32,7 @@ public class Popup : MonoBehaviour
 
         textComponent.color = color;
 
-        var prefix = points >= 0 ? "+" : "-";
+        var prefix = points >= 0 ? "+" : "";
         textComponent.text = $"{prefix}{points} health";
     }
     

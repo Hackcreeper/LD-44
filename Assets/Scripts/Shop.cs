@@ -38,6 +38,12 @@ public class Shop : MonoBehaviour
         player.SetField(player.GetField().GetNext());
     }
 
+    public void BuyTrap()
+    {
+        Game.Instance.HideShopDialog();
+        Game.Instance.SetTrapPlacementMode(true);
+    }
+
     public void Cancel()
     {
         var player = Game.Instance.GetActivePlayer();

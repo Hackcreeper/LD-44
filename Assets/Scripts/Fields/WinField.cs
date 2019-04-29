@@ -6,5 +6,7 @@ namespace Fields
         {
             Game.Instance.Win(player);
         }
+        
+        protected override bool AllowTrapPlacement() => false;
     }
 }

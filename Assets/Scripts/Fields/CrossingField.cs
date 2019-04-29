@@ -115,5 +115,7 @@ namespace Fields
                 Gizmos.DrawLine(transform.position, field.transform.position);
             }
         }
+        
+        protected override bool AllowTrapPlacement() => false;
     }
 }
