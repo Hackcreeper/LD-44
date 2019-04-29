@@ -156,6 +156,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: tunnel
+    second: {fileID: 2100000, guid: 13158273027e04df79a40b311de2cac5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: winHouse
     second: {fileID: 2100000, guid: ef5c15c812ef24fc89a88f64fb562483, type: 2}
   - first:
