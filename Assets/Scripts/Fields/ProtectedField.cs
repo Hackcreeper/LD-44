@@ -2,6 +2,6 @@ namespace Fields
 {
     public class ProtectedField : Field
     {
-        protected override bool AllowTrapPlacement() => false;
+        public override bool AllowTrapPlacement() => false;
     }
 }

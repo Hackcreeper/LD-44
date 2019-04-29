@@ -1,18 +1,27 @@
 using System.Collections.Generic;
+using Fields;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
     private bool _isBot;
     private float _botTimer;
+
+    [SerializeField]
+    private Button[] buttons;
     
     public void Init()
     {
         var player = Game.Instance.GetActivePlayer();
 
+        foreach (var button in buttons)
+        {
+            button.interactable = !player.IsBot();
+        }
+        
         if (player.IsBot())
         {
-            // TODO: Disable buttons
             _isBot = true;
             _botTimer = Random.Range(1f, 2.5f);
         }
@@ -81,7 +90,7 @@ public class Shop : MonoBehaviour
         }
         if (player.GetHealth() > 4)
         {
-//            possible.Add(Upgrade.Trap);
+            possible.Add(Upgrade.Trap);
         }
 
         if (possible.Count == 0)
@@ -100,7 +109,7 @@ public class Shop : MonoBehaviour
         switch (item)
         {
             case Upgrade.Trap:
-                Cancel();
+                BuyBotTrap();
                 return;
             
             case Upgrade.DoubleDice:
@@ -111,6 +120,41 @@ public class Shop : MonoBehaviour
                 Cancel();
                 return;
         }
+    }
+
+    private void BuyBotTrap()
+    {
+        Game.Instance.HideShopDialog();
+        
+        Field lastPossibleField = null;
+
+        do
+        {
+            Player player = null;
+            do
+            {
+                player = Game.Instance.GetPlayers()[Random.Range(0, Game.Instance.GetPlayers().Count)];
+            } while (player != Game.Instance.GetActivePlayer());
+
+            var steps = Random.Range(1, 20);
+
+            var lastField = player.GetField();
+            for (var i = 1; i <= steps; i++)
+            {
+                if (!lastField.GetNext())
+                {
+                    break;
+                }
+
+                lastField = lastField.GetNext();
+                if (lastField.AllowTrapPlacement())
+                {
+                    lastPossibleField = lastField;
+                }
+            }
+        } while (!lastPossibleField);
+        
+        lastPossibleField.PlaceAsBot();
     }
 }
 

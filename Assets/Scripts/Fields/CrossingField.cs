@@ -116,6 +116,6 @@ namespace Fields
             }
         }
         
-        protected override bool AllowTrapPlacement() => false;
+        public override bool AllowTrapPlacement() => false;
     }
 }
